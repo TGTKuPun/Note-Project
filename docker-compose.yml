@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   # MySQL service
   mysql-server:
@@ -14,7 +12,8 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: user
       MYSQL_PASSWORD: user
-      MYSQL_DATABASE: mydb
+      MYSQL_DATABASE: db_note
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
   # PHP (Apache) service
   web:
