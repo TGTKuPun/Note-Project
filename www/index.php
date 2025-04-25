@@ -77,7 +77,7 @@
                   <label for="login-check">Remember Me</label>
                 </div>
                 <div class="two">
-                  <label for=""><a href="#">|Forgot password?</a></label>
+                  <label for=""><a href="#">Forgot password?</a></label>
                 </div>
               </div>
             </div>
@@ -104,7 +104,11 @@
                 <i class="bx bx-envelope"></i>
               </div>
               <div class="input-box">
-                <input type="password" class="input-field" name="password" id="password" placeholder="Password"/>
+                <input type="text" class="input-field" name="username" id="new-username" placeholder="Username"/>
+                <i class="bx bx-user"></i>
+              </div>
+              <div class="input-box">
+                <input type="password" class="input-field" name="password" id="new-password" placeholder="Password"/>
                 <i class="bx bx-lock-alt"></i>
               </div>
               <div class="input-box">
@@ -123,7 +127,9 @@
           </form>
       </div>
     </div>
-
+    <!-- SweetAlert2 JS -->
+    <!-- prettier-ignore -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
     <!-- JQuery JS -->
     <!-- prettier-ignore -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -158,38 +164,141 @@
         }
 
         $(document).ready(function () {
+
+          function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
+          }
+
           $("#login").on("submit", function (e) {
-            e.preventDefault(); // Ngăn form reload trang
+            e.preventDefault();
 
             const username = $("#username").val().trim();
             const password = $("#password").val().trim();
             const remember = $("#login-check").is(":checked") ? 1 : 0;
 
             if (!username || !password) {
-              alert("Vui lòng nhập đầy đủ thông tin.");
+              Swal.fire({
+                icon: "warning",
+                title: "Missing Info",
+                text: "Please fill up the form.",
+              });
+
               return;
             }
 
             $.ajax({
               url: "api/login_process.php",
               method: "POST",
+              dataType: "json",
               data: {
                 username: username,
                 password: password,
                 "remember-me": remember,
               },
               success: function (response) {
-                if (response.trim() === "success") {
-                  window.location.href = "pages/dashboard.php";
+                if (response.status === "success") {
+                  Swal.fire({
+                    icon: "success",
+                    title: "Login Successful",
+                    text: "Redirecting to dashboard...",
+                    showConfirmButton: false,
+                    timer: 1500
+                  }).then(() => {
+                    window.location.href = "pages/dashboard.php";
+                  });
                 } else {
-                  alert(response);
+                  Swal.fire({
+                    icon: "error",
+                    title: "Login Failed",
+                    text: response.message,
+                  });
                 }
               },
-              error: function () {
-                alert("Đã xảy ra lỗi khi gửi yêu cầu.");
+              error: function (xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+                console.error("Response Text:", xhr.responseText);
+                
+                Swal.fire({
+                  icon: "error",
+                  title: "AJAX Error",
+                  html: `<b>Status:</b> ${status}<br><b>Error:</b> ${error}`,
+                });
               },
             });
           });
+
+          $("#register").on("submit", function (e) {
+            e.preventDefault();
+
+            const firstname = $("#firstname").val().trim();
+            const lastname = $("#lastname").val().trim();
+            const email = $("#email").val().trim();
+            const username = $("#new-username").val().trim();
+            const password = $("#new-password").val().trim();
+            const remember = $("#register-check").is(":checked") ? 1 : 0;
+
+            if (!firstname || !lastname || !email || !username || !password) {
+              Swal.fire({
+                icon: "warning",
+                title: "Missing Info",
+                text: "Please fill up the form.",
+              });
+
+             return;
+            } else if (!validateEmail(email)) {
+              Swal.fire({
+                icon: "error",
+                title: "Invalid Email",
+                text: "Please enter a valid email address.",
+              });
+              return;
+            }
+
+            $.ajax({
+              url: "api/register_process.php",
+              method: "POST",
+              dataType: "json",
+              data: {
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                "new-username": username,
+                "new-password": password,
+                "remember-me": remember,
+              },
+              success: function (response) {
+                if (response.status === "success") {
+                  Swal.fire({
+                    icon: "success",
+                    title: "Registration Successful",
+                    text: "Redirecting to dashboard...",
+                    showConfirmButton: false,
+                    timer: 1500
+                  }).then(() => {
+                    window.location.href = "pages/dashboard.php";
+                  });
+                } else {
+                  Swal.fire({
+                    icon: "error",
+                    title: "Registration Failed",
+                    text: response.message,
+                  });
+                }
+              },
+              error: function (xhr, status, error) {
+                console.error("AJAX Error:", status, error);
+                console.error("Response Text:", xhr.responseText);
+                
+                Swal.fire({
+                  icon: "error",
+                  title: "AJAX Error",
+                  html: `<b>Status:</b> ${status}<br><b>Error:</b> ${error}`,
+                });
+              },
+            })
+          });
+
         });
     </script>
   </body>

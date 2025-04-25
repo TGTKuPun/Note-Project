@@ -20,4 +20,4 @@ CREATE TABLE IF NOT EXISTS tb_users (
 INSERT INTO tb_users (firstname, lastname, email, username, user_pass, user_role)
 VALUES 
 ('Luciana', 'de Montefio', 'admin@gmail.com', 'lucy', 'lucy123', 'Admin'),
-('Jane', 'Doe', 'jane.doe@gmail.com', 'jane_doe', 'password123', 'User');
+('Jane', 'Doe', 'jane.doe@gmail.com', 'jane_doe', 'pass123', 'User');
