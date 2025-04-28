@@ -17,20 +17,31 @@
             exit;
         }
 
-        $stmt = $con->prepare("SELECT user_id, username, email, user_pass FROM tb_users WHERE username = ?");
+        $stmt = $con->prepare("SELECT user_id, username, email, user_pass, activated FROM tb_users WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
         if ($result->num_rows === 1) {
             $row = $result->fetch_assoc();
-            if (password_verify($password, $row['user_pass']) || $password === $row['user_pass']) {
+
+            // Verify activation of account
+            if ($row["activated"] != 1) {
+                echo json_encode([
+                    "status" => "error",
+                    "message" => "Account not verified. Please check your email."
+                ]);
+                exit;
+            }
+
+            // Verify passwor
+            if (password_verify($password, $row['user_pass'])) {
                 $_SESSION["user_id"] = $row["user_id"];
                 $_SESSION["user_email"] = $row["email"];
 
                 if ($remember) {
-                    setcookie("user_id", $row["user_id"], time() + (86400 * 30), "/");
-                    setcookie("user_email", $row["email"], time() + (86400 * 30), "/");
+                    setcookie("user_id", $row["user_id"], time() + 86400, "/");
+                    setcookie("user_email", $row["email"], time() + 86400, "/");
                 }
 
                 echo json_encode([

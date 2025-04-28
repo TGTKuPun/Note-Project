@@ -20,8 +20,10 @@
             exit;
         }
 
-        $stmt = $con->prepare("INSERT INTO tb_users (firstname, lastname, email, username, user_pass, user_role) VALUES (?, ?, ?, ?, ?, 'User')");
-        $stmt->bind_param("sssss", $firstname, $lastname, $email, $username, $hashed_password);
+        $email_token = bin2hex(random_bytes(32));
+
+        $stmt = $con->prepare("INSERT INTO tb_users (firstname, lastname, email, username, user_pass, email_token) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss", $firstname, $lastname, $email, $username, $hashed_password, $email_token);
         
         if ($stmt->execute()) {
             $new_user_id = $stmt->insert_id;

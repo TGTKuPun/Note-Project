@@ -1,12 +1,11 @@
 /* IMPORT FONT */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
-/* GLOBAL STYLES */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif !important;
 }
 
 body,
@@ -15,8 +14,9 @@ html {
 }
 
 :root {
-  --primary-color: #f3da54;
+  --primary-color: ##f3da54;
   --second-color: #996d43;
+  --black-color: #000;
 }
 
 /* WRAPPER */
@@ -34,7 +34,7 @@ html {
   align-items: center;
   justify-content: center;
   width: 512px;
-  height: 500px;
+  height: 585px;
   overflow: hidden;
   z-index: 2;
 }

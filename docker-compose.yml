@@ -6,8 +6,8 @@ services:
       - 3399:3306
     restart: always
     volumes:
-      - ./mysql/data:/var/lib/mysql
-      - ./mysql/sql/:/docker-entrypoint-initdb.d/
+      - ./DB/data:/var/lib/mysql
+      - ./DB/sql:/docker-entrypoint-initdb.d/
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: user
@@ -15,14 +15,15 @@ services:
       MYSQL_DATABASE: db_note
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
-  # PHP (Apache) service
-  web:
-    build: ./www
+  # PHP (Apache) service - frontend
+  website:
+    build: .
     restart: always
     ports:
       - 8080:80
     volumes:
-      - ./www:/var/www/html/
+      - ./frontend:/var/www/html/
+      - ./backend/api:/var/www/html/api
     depends_on:
       - mysql-server
 
