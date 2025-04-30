@@ -4,7 +4,7 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
   font-family: "Roboto", sans-serif !important;
 }
 
@@ -62,15 +62,16 @@ nav {
 /* NAVBAR */
 
 /* NOTE SECTION */
-#note-section {
+.wrapper {
   margin: 50px;
   margin-top: 20px;
   display: grid;
   gap: 15px;
   grid-template-columns: repeat(auto-fill, 265px);
+  justify-content: center;
 }
 
-#note-section li {
+.wrapper li {
   height: 250px;
   list-style: none;
   background-color: #fff;
@@ -79,7 +80,7 @@ nav {
   padding: 15px 20px 20px;
 }
 
-#note-section .note {
+.wrapper .note {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -124,6 +125,7 @@ header {
 .note p {
   font-size: 22px;
   font-weight: 500;
+  line-height: 1.4;
 }
 
 .note span {
@@ -131,6 +133,7 @@ header {
   margin-top: 5px;
   color: var(--side-color);
   font-size: 16px;
+  line-height: 1.5;
 }
 
 .labels span {
@@ -145,6 +148,7 @@ header {
 .bottom-content span {
   color: #6d6d6d;
   font-size: 14px;
+  line-height: 1.5;
 }
 
 .bottom-content .settings i {
@@ -154,15 +158,15 @@ header {
 }
 
 .settings {
-  position: relative !important;
+  position: relative;
 }
 
 .settings .menu {
   position: absolute;
   bottom: 0;
-  right: -5px;
+  right: -10px;
   padding: 5px 0;
-  background: #fff;
+  background: #fff !important;
   border-radius: 4px;
   transform: scale(0);
   transform-origin: bottom right;
@@ -170,37 +174,49 @@ header {
   transition: transform 0.2s ease;
 }
 
-.settings:hover .menu {
+.settings.show .menu {
   transform: scale(1);
 }
+
 .settings .menu li {
   height: 25px !important;
-  font-size: 16px;
-  border-radius: 0;
+  cursor: pointer !important;
+  border-radius: 0 !important;
   padding: 17px 15px;
   justify-content: flex-start;
+  box-shadow: none;
 }
 
-.menu li:hover {
-  background-color: #f5f5f5 !important;
+.settings .menu li:hover {
+  background: #f5f5f5 !important;
 }
 
-.menu li i {
-  padding-right: 8px;
+/* LABELS */
+.note .label span {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #f3da54;
+  border-radius: 12px;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 /* POPUP-BOX */
 .popup-box {
-  position: fixed !important;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
 }
 
 .popup-box .popup {
-  position: absolute !important;
+  position: absolute;
   top: 50%;
   left: 50%;
   z-index: 5;
@@ -261,7 +277,7 @@ form .row label {
 
 .content form :where(input, textarea, select) {
   width: 100%;
-  height: 50px;
+  height: 35px;
   outline: none;
   font-size: 17px;
   padding: 0 15px;
@@ -269,8 +285,12 @@ form .row label {
   border: 1px solid #999;
 }
 
+.content form :where(input, textarea, select):focus {
+  border: 2px solid #999;
+}
+
 .content form :where(select) {
-  height: auto;
+  height: 35px;
 }
 
 .content form textarea {
@@ -289,4 +309,50 @@ form .row label {
   font-size: 17px;
   border-radius: 4px;
   background: var(--primary-color);
+  border: 1px solid var(--second-color);
+}
+
+.content form button:hover {
+  border: 2px solid var(--second-color);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .wrapper li {
+    width: 100%;
+  }
+
+  /* TITLE */
+  .note p {
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* DESCRIPTION */
+  .note span {
+    font-size: 14px;
+    color: var(--side-color);
+    margin-top: 5px;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* DATE */
+  .bottom-content span {
+    font-size: 12px;
+    color: #6d6d6d;
+    line-height: 1.3;
+  }
 }

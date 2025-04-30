@@ -17,7 +17,9 @@
             exit;
         }
 
-        $stmt = $con->prepare("SELECT user_id, username, email, user_pass, activated FROM tb_users WHERE username = ?");
+        $query = "SELECT user_id, username, email, user_pass, activated FROM tb_users WHERE username = ?";
+
+        $stmt = $con->prepare($query);
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -34,7 +36,7 @@
                 exit;
             }
 
-            // Verify passwor
+            // Verify password
             if (password_verify($password, $row['user_pass'])) {
                 $_SESSION["user_id"] = $row["user_id"];
                 $_SESSION["user_email"] = $row["email"];

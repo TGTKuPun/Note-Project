@@ -13,6 +13,22 @@ CREATE TABLE IF NOT EXISTS tb_users (
   `email_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+-- Create tb_notes Table
+CREATE TABLE IF NOT EXISTS tb_notes (
+  `note_id` INT AUTO_INCREMENT PRIMARY KEY,
+  `note_title` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL,
+  `note_desc` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL,
+  `note_date` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` INT,
+  `label_id` INT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Create tb_labels Table
+CREATE TABLE IF NOT EXISTS tb_labels (
+  `label_id` INT AUTO_INCREMENT PRIMARY KEY,
+  `label_name` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 -- Inserted Data
 INSERT INTO tb_users (firstname, lastname, email, username, user_pass, activated, email_token)
 VALUES 
@@ -20,4 +36,19 @@ VALUES
  'b59f7decc4baf1a0f57e531cf6d5f4d778dc6ea0ef5a8a3db8043d45208e7db9'),
 ('Jane', 'Doe', 'jane.doe@gmail.com', 'jane_doe', '$2b$12$3WGl/7lUbdvbTXZT1.8BHevq4xXtEwkSEXsTq6lmO0uyAZQvpqOJm', b'1',
  'b2b8fbe249a4d25ed2c21ec7f7f6e21ed2d60a7f576c4d5199d84dd80b6e76b1');
+
+ INSERT INTO tb_labels (label_name) VALUES
+('Work'),
+('Study'),
+('Business'),
+('Personal');
+
+INSERT INTO tb_notes (note_title, note_desc, note_date, user_id, label_id) VALUES
+('Daily Missions', 'Complete all daily missions to earn Trailblaze EXP and credits.', 'April 25, 2025', 1, 1),
+('Forgotten Hall', 'Clear stages 6-10 for rewards and Stellar Jade.', 'April 26, 2025', 1, 2),
+('Light Cone Farming', 'Farm “Cavern of Corrosion: Path of Drifting” for Bronya.', 'April 24, 2025', 2, 3),
+('Planar Ornaments', 'Use Simulated Universe to collect Planar Ornaments set for Seele.', 'April 23, 2025', 2, 4),
+('Character Ascension', 'Ascend Kafka to phase 4 - need Lightning Crown and EXP materials.', 'April 27, 2025', 1, 1),
+('Trailblaze Power Use', 'Spend 180 Trailblaze Power efficiently today.', 'April 26, 2025', 2, 2);
+
 
