@@ -118,13 +118,12 @@ let isUpdated = false,
 Box_add.addEventListener("click", () => {
   Tag_title.focus();
   Box_popup.classList.add("show");
-
-  // Reset
-  isUpdated = false;
-  updateId = null;
 });
 
 Btn_close.addEventListener("click", () => {
+  // Reset
+  isUpdated = false;
+  updateId = null;
   Tag_title.value = "";
   Tag_desc.value = "";
   Tag_label.value = "";
@@ -155,7 +154,7 @@ document.addEventListener("click", (e) => {
 });
 
 // To delete Note
-function deleteNote(index) {
+function deleteNote(note_id) {
   Swal.fire({
     title: "Are you sure?",
     text: "This note will be permanently deleted!",
@@ -165,9 +164,12 @@ function deleteNote(index) {
     cancelButtonText: "Cancel",
   }).then((result) => {
     if (result.isConfirmed) {
-      notes.splice(index, 1);
-      localStorage.setItem("notes", JSON.stringify(notes));
-      showNotes();
+      const index = notes.findIndex((note) => note.note_id === note_id);
+      if (index !== -1) {
+        notes.splice(index, 1);
+        localStorage.setItem("notes", JSON.stringify(notes));
+        showNotes();
+      }
 
       // Sync with server
       $.ajax({
@@ -175,10 +177,9 @@ function deleteNote(index) {
         method: "POST",
         contentType: "application/json",
         dataType: "json",
-        data: JSON.stringify({ note_id: index }),
+        data: JSON.stringify({ note_id: note_id }),
         success: function (response) {
           console.log(response.message);
-          showNotes();
         },
         error: function (xhr, status, response) {
           console.error(response.error);
@@ -189,15 +190,21 @@ function deleteNote(index) {
 }
 
 // To update Note
-function updateNote(index, title, desc, label) {
-  Box_add.click();
-  isUpdated = true;
-  updateId = index;
-  Tag_title.value = title;
-  Tag_desc.value = desc;
-  Tag_label.value = label;
-  Btn_add.innerText = "Update Note";
-  Title_popup.innerText = "Update a Note";
+function updateNote(note_id, note_title, note_desc, label_name) {
+  updateId = notes.findIndex((note) => note.note_id === note_id);
+
+  if (updateId !== -1) {
+    isUpdated = true;
+    Tag_title.value = note_title;
+    Tag_desc.value = note_desc;
+    Tag_label.value = label_name;
+    Btn_add.innerText = "Update Note";
+    Title_popup.innerText = "Update a Note";
+
+    Box_add.click();
+  } else {
+    console.warn("Note with note_id =", note_id, "not found");
+  }
 }
 
 // SAVING NOTES TO LOCAL STORAGE (AUTO SAVE)
@@ -225,22 +232,30 @@ Btn_add.addEventListener("click", (e) => {
     if (!isUpdated) {
       notes.push(Note_info); // adding new note to notes
     } else {
+      Note_info.note_id = notes[updateId].note_id; // Initialize 'note_id' attr
       notes[updateId] = Note_info; // updating specified note
     }
 
-    localStorage.setItem("notes", JSON.stringify(notes));
-    showNotes();
-
+    console.log(isUpdated);
     // Sync with the server
     $.ajax({
-      url: "../api/Note/save_note.php",
+      url: isUpdated
+        ? "../api/Note/update_note.php"
+        : "../api/Note/save_note.php",
       method: "POST",
       contentType: "application/json", // JSON you send
       dataType: "json", // JSON you receive
       data: JSON.stringify(Note_info),
       success: function (response) {
         console.log(response.message);
-        // Immediately reload the notes
+
+        // if (!isUpdated) {
+        //   // Update note_id
+        Note_info.note_id = response.note_id;
+        notes[notes.length - 1] = Note_info;
+        localStorage.setItem("notes", JSON.stringify(notes));
+        showNotes();
+        // }
       },
       error: function (xhr, status, error) {
         console.error(error);

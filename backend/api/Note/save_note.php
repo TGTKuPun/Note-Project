@@ -17,7 +17,7 @@
         $title = trim($data['note_title']);
         $desc = trim($data['note_desc']);
         $label = trim($data['label_name']);
-        $date = trim($data['Note_date']);
+        $date = trim($data['note_date']);
         $label_id = null;
         
         $query = "SELECT label_id FROM tb_labels WHERE label_name = ?";
