@@ -38,6 +38,12 @@ function logout() {
   });
 }
 
+let subMenu = document.getElementById("subMenu");
+
+function toggleProfile() {
+  subMenu.classList.toggle("open");
+}
+
 // CREATE NOTE FORM
 const Box_add = document.querySelector(".add-note");
 const Box_popup = document.querySelector(".popup-box");

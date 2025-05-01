@@ -45,7 +45,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href=".././assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/index.css">
 
     <!-- Title -->
     <title>Note Project</title>
@@ -56,7 +56,7 @@
       <div class="form-box">
         <!-- Login Form -->
         <!-- prettier-ignore -->
-          <form class="login-container" id="login" method="POST">
+          <form class="login-container" id="verify" method="POST">
             <div class="top">
               <header>Reset Password</header>
               <span class="text-center fs-6">If your email exists, you will receive an email to reset your password</span>
@@ -65,7 +65,7 @@
                 <i class="bx bx-envelope"></i>
               </div>
               <div class="input-box">
-                <input type="submit" class="submit" value="Reset Password"/>
+                <input type="submit" class="submit" value="Reset Password" onclick="toReset()"/>
               </div>
               <div class="two-col">
                 <div class="two">
@@ -77,7 +77,7 @@
 
         <!-- Register Form -->
         <!-- prettier-ignore -->
-          <form class="register-container" id="register" method="POST">
+          <form class="register-container" id="change_password" method="POST">
             <div class="top">
               <header>Reset Password</header>
               <div class="input-box">
@@ -89,7 +89,7 @@
                 <i class="bx bx-lock-alt"></i>
               </div>
               <div class="input-box">
-                <input type="submit" class="submit" value="Change Password"/>
+                <input type="submit" class="submit" value="Change Password" onclick="toVerify()"/>
               </div>
               <div class="two-col">
                 <div class="two">
@@ -111,32 +111,38 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
     <!-- Custom JS for style -->
     <script>
-        var login = document.getElementById("login");
-        var register = document.getElementById("register");
+        var verify = document.getElementById("verify");
+        var change_password = document.getElementById("change_password");
 
         function toVerify() {
           // Moblie
-          login.classList.add("show");
-          register.classList.remove("show");
+          verify.classList.add("show");
+          change_password.classList.remove("show");
           // Desktop
-          login.style.left = "4px";
-          register.style.right = "-520px";
-          login.style.opacity = 1;
-          register.style.opacity = 0;
+          verify.style.left = "4px";
+          change_password.style.right = "-520px";
+          verify.style.opacity = 1;
+          change_password.style.opacity = 0;
         }
 
         function toReset() {
           // Moblie
-          login.classList.remove("show");
-          register.classList.add("show");
+          verify.classList.remove("show");
+          change_password.classList.add("show");
           // Desktop
-          login.style.left = "-510px";
-          register.style.right = "5px";
-          login.style.opacity = 0;
-          register.style.opacity = 1;
+          verify.style.left = "-510px";
+          change_password.style.right = "5px";
+          verify.style.opacity = 0;
+          change_password.style.opacity = 1;
         }
+        
+        $("#verify").on("submit", function (e) {
+          e.preventDefault();
+        })
 
-
+        $("#change_password").on("submit", function (e) {
+          e.preventDefault();
+        })
     </script>
   </body>
 </html>

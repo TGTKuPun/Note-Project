@@ -15,7 +15,7 @@ services:
       MYSQL_DATABASE: db_note
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
-  # PHP (Apache) service - frontend
+  # PHP (Apache) service
   website:
     build: .
     restart: always

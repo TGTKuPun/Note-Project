@@ -75,8 +75,38 @@
         <div>
           <span class="h1 m-0">NOTE DASHBOARD</span>
         </div>
-        <div>
-          <i class="bx bx-log-out fs-3" onclick="logout()"></i>
+        <div class="d-flex align-items-center justify-content-center">
+          <img src="../assets/uploads/avatar/user.webp" alt="" class="rounded-circle w-50" style="height: auto; object-fit: cover;" onclick="toggleProfile()">
+          <i class='bx bx-chevron-down fs-4' onclick="toggleProfile()"></i>
+          <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+              <div class="user-info">
+                <img src="../assets/uploads/avatar/user.webp" alt="">
+                <h2 class="h2">Anby</h2>
+              </div>
+              <hr>
+              <a href="#" class="sub-menu-link">
+                <i class='bx bx-user-circle fs-3'></i>
+                <p>Edit Profile</p>
+                <span><i class='bx bx-chevron-right' ></i></span>
+              </a>
+              <a href="#" class="sub-menu-link">
+                <i class='bx bxs-cog fs-3'></i>
+                <p>Settings & Privacy</p>
+                <span><i class='bx bx-chevron-right' ></i></span>
+              </a>
+              <a href="#" class="sub-menu-link">
+                <i class='bx bx-help-circle fs-3'></i>
+                <p>Help & Support</p>
+                <span><i class='bx bx-chevron-right' ></i></span>
+              </a>
+              <a href="#" class="sub-menu-link" onclick="logout()">
+                <i class='bx bx-power-off fs-3'></i>
+                <p>Logout</p>
+                <span><i class='bx bx-chevron-right' ></i></span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

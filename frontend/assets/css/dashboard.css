@@ -356,3 +356,72 @@ form .row label {
     line-height: 1.3;
   }
 }
+
+/* PROFILE */
+.sub-menu-wrap {
+  position: absolute;
+  top: 7%;
+  right: 11%;
+  width: 280px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s;
+}
+
+.sub-menu-wrap.open {
+  max-height: 400px;
+}
+
+.sub-menu {
+  background: #fff;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 4px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info img {
+  width: 60px !important;
+  margin-right: 15px;
+}
+
+.user-info hr {
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background: #ccc;
+  margin: 15px 0 10px;
+}
+
+.sub-menu-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  text-align: start;
+  color: #525252;
+  margin: 12px 0;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.sub-menu-link p {
+  width: 100%;
+  margin-left: 8px;
+}
+
+.sub-menu-link span {
+  font-size: 18px;
+  transition: transform 0.5s;
+}
+
+.sub-menu-link:hover span {
+  transform: translateX(5px);
+}
+
+.sub-menu-link:hover p {
+  font-weight: 600;
+}
