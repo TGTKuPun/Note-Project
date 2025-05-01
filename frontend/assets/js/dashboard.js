@@ -266,3 +266,24 @@ Btn_add.addEventListener("click", (e) => {
     Btn_close.click();
   }
 });
+
+function fetch_label() {
+  const select = Box_popup.querySelector("select");
+
+  $.ajax({
+    url: "../api/Note/fetch_label.php",
+    method: "POST",
+    dataType: "json",
+    success: function (data) {
+      data.forEach((label) => {
+        const option = document.createElement("option");
+        option.value = label.label_name;
+        option.textContent = label.label_name;
+        select.appendChild(option);
+      });
+    },
+    error: function (xhr, status, error) {
+      console.error("Error fetching labels from server:", error);
+    },
+  });
+}

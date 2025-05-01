@@ -170,9 +170,7 @@
                         <label for="label">Label</label>
                         <select name="label" id="label">
                             <option value="" disabled hidden selected>-- Select a label --</option>
-                            <option value="Study">Study</option>
-                            <option value="Fashion">Fashion</option>
-                            <option value="Business">Business</option>
+                            <!-- fetch labels from Server -->
                         </select>
                     </div>
                     <!-- Description -->
@@ -209,7 +207,8 @@
     <script src="../assets/js/dashboard.js"></script>
     <script>
       window.addEventListener("DOMContentLoaded", () => {
-          loadNotesFromServer();  
+          fetch_label();
+          loadNotesFromServer();
       });
     </script>
   </body>
