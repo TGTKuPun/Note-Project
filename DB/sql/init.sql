@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS tb_users (
   `username` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL,
   `user_pass` VARCHAR(255) COLLATE utf8_unicode_ci NOT NULL,
   `activated` BIT(1) DEFAULT b'0',
-  `email_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+  `email_token` VARCHAR(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_avatar` VARCHAR(100) DEFAULT 'default.webp'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Create tb_notes Table
@@ -27,6 +28,13 @@ CREATE TABLE IF NOT EXISTS tb_notes (
 CREATE TABLE IF NOT EXISTS tb_labels (
   `label_id` INT AUTO_INCREMENT PRIMARY KEY,
   `label_name` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Create tb_preferences Table
+CREATE TABLE IF NOT EXISTS tb_preferences (
+  `user_id` INT PRIMARY KEY,
+  `view` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL,
+  `theme` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Inserted Data
@@ -50,5 +58,9 @@ INSERT INTO tb_notes (note_title, note_desc, note_date, user_id, label_id) VALUE
 ('Planar Ornaments', 'Use Simulated Universe to collect Planar Ornaments set for Seele.', 'April 23, 2025', 2, 4),
 ('Character Ascension', 'Ascend Kafka to phase 4 - need Lightning Crown and EXP materials.', 'April 27, 2025', 1, 1),
 ('Trailblaze Power Use', 'Spend 180 Trailblaze Power efficiently today.', 'April 26, 2025', 2, 2);
+
+INSERT INTO tb_preferences (user_id, view, theme) VALUES
+(1, 'grid', 'light'),
+(2, 'list', 'light');
 
 

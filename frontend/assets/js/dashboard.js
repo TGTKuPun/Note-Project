@@ -50,6 +50,9 @@ const Box_popup = document.querySelector(".popup-box");
 const Title_popup = Box_popup.querySelector("header p");
 const Btn_close = Box_popup.querySelector("header i");
 const Btn_add = Box_popup.querySelector("button");
+const Btn_editProfile = document.querySelector("#btn_edit_profile");
+const Popup_EditProfile = document.querySelector(".popup-box-edit-profile");
+const Btn_profile_close = document.querySelector("#close_profile_popup");
 
 const Tag_title = Box_popup.querySelector("input");
 const Tag_desc = Box_popup.querySelector("textarea");
@@ -64,10 +67,10 @@ const months = [
 let notes = JSON.parse(localStorage.getItem("notes") || "[]");
 
 // prettier-ignore
-function showNotes() {
+function showNotes(notes_to_show) {
   document.querySelectorAll(".note").forEach((note) => note.remove());
-  notes.forEach((note) => {
-    let li = `<li class="note">
+  notes_to_show.forEach((note) => {
+    let li = `<li class="note" data-labels="${note.label_name || ''}">
                 <div class="details">
                   <p>${note.note_title}</p>
                   <span>${note.note_desc}</span>
@@ -94,16 +97,32 @@ function showNotes() {
 // to js object else passing an empty array to notes
 async function loadNotesFromServer() {
   try {
-    const res = await fetch("../api/Note/fetch_note.php");
+    const res = await fetch("../api/note/fetch_note.php");
     if (!res.ok) throw new Error("Fetch Failed");
 
     const data = await res.json();
     notes.length = 0;
     notes.push(...data);
-    console.log(notes);
 
     localStorage.setItem("notes", JSON.stringify(notes)); // Update local-storage to latest version
-    showNotes();
+
+    const savedLabel = localStorage.getItem("selectedLabel");
+    const searchKeyword = localStorage.getItem("searchKeyword")?.toLowerCase();
+
+    let filteredNotes = [...notes];
+
+    if (searchKeyword) {
+      filteredNotes = filteredNotes.filter((n) =>
+        n.note_title.toLowerCase().includes(searchKeyword)
+      );
+      searchInput.value = searchKeyword;
+      showNotes(filteredNotes);
+    } else if (savedLabel) {
+      filteredNotes = filteredNotes.filter((n) => n.label_name === savedLabel);
+      showNotes(filteredNotes);
+    } else {
+      showNotes(notes);
+    }
 
     console.log("Successfully Loaded latest notes from server");
   } catch (error) {
@@ -114,7 +133,7 @@ async function loadNotesFromServer() {
 
 function loadNotesFromLocal() {
   notes = JSON.parse(localStorage.getItem("notes") || "[]");
-  showNotes();
+  showNotes(notes);
   console.log("Loaded notes from localStorage");
 }
 
@@ -124,6 +143,10 @@ let isUpdated = false,
 Box_add.addEventListener("click", () => {
   Tag_title.focus();
   Box_popup.classList.add("show");
+});
+
+Btn_editProfile.addEventListener("click", () => {
+  Popup_EditProfile.classList.add("show");
 });
 
 Btn_close.addEventListener("click", () => {
@@ -136,6 +159,10 @@ Btn_close.addEventListener("click", () => {
   Btn_add.innerText = "Add Note";
   Title_popup.innerText = "Add a new Note";
   Box_popup.classList.remove("show");
+});
+
+Btn_profile_close.addEventListener("click", () => {
+  Popup_EditProfile.classList.remove("show");
 });
 
 // To display setting-menu in which is clicked.
@@ -174,12 +201,12 @@ function deleteNote(note_id) {
       if (index !== -1) {
         notes.splice(index, 1);
         localStorage.setItem("notes", JSON.stringify(notes));
-        showNotes();
+        showNotes(notes);
       }
 
       // Sync with server
       $.ajax({
-        url: "../api/Note/delete_note.php",
+        url: "../api/note/delete_note.php",
         method: "POST",
         contentType: "application/json",
         dataType: "json",
@@ -246,8 +273,8 @@ Btn_add.addEventListener("click", (e) => {
     // Sync with the server
     $.ajax({
       url: isUpdated
-        ? "../api/Note/update_note.php"
-        : "../api/Note/save_note.php",
+        ? "../api/note/update_note.php"
+        : "../api/note/save_note.php",
       method: "POST",
       contentType: "application/json", // JSON you send
       dataType: "json", // JSON you receive
@@ -260,7 +287,7 @@ Btn_add.addEventListener("click", (e) => {
         Note_info.note_id = response.note_id;
         notes[notes.length - 1] = Note_info;
         localStorage.setItem("notes", JSON.stringify(notes));
-        showNotes();
+        showNotes(notes);
         // }
       },
       error: function (xhr, status, error) {
@@ -275,13 +302,38 @@ Btn_add.addEventListener("click", (e) => {
 
 function fetch_label() {
   const select = Box_popup.querySelector("select");
+  const dropdown = document.getElementById("label-menu");
 
   $.ajax({
-    url: "../api/Note/fetch_label.php",
+    url: "../api/note/fetch_label.php",
     method: "POST",
     dataType: "json",
     success: function (data) {
-      data.forEach((label) => {
+      data.forEach((label, index) => {
+        // In navbar
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        const hr = document.createElement("hr");
+        a.classList.add("dropdown-item");
+        hr.classList.add("dropdown-divider");
+        a.href = "#";
+        a.textContent = label.label_name;
+
+        // Filter function
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          filterLabel(label.label_name);
+        });
+
+        li.appendChild(a);
+        dropdown.appendChild(li);
+
+        if (index < data.length - 1) {
+          const hr = document.createElement("hr");
+          hr.classList.add("dropdown-divider");
+          dropdown.appendChild(hr);
+        }
+        // In create note form
         const option = document.createElement("option");
         option.value = label.label_name;
         option.textContent = label.label_name;
@@ -293,3 +345,103 @@ function fetch_label() {
     },
   });
 }
+
+// FILTER LABEL FUNCTION
+const all_labels = document.getElementById("all-labels");
+
+all_labels.addEventListener("click", function (e) {
+  e.preventDefault();
+  filterLabel("All");
+});
+
+function filterLabel(labelName) {
+  if (labelName === "All") {
+    // To display the user preference regardless of reloading website
+    localStorage.removeItem("selectedLabel");
+    showNotes(notes);
+  } else {
+    localStorage.setItem("selectedLabel", labelName);
+    const filtered = notes.filter((n) => n.label_name === labelName);
+    showNotes(filtered);
+  }
+}
+
+// SEARCH BAR FUNCTION
+const searchBar = document.getElementById("searchOffcanvas");
+const searchInput = searchBar.querySelector("#input-field");
+
+// Use "input" for immediate search.
+searchInput.addEventListener("input", function () {
+  const keyword = this.value.toLowerCase();
+  localStorage.setItem("searchKeyword", keyword);
+  const filter = notes.filter((note) =>
+    note.note_title.toLowerCase().includes(keyword)
+  );
+  showNotes(filter);
+});
+
+// UPDATE LAYOUT VIEW PREFERENCE
+$(document).ready(function () {
+  $(".dropdown-menu .dropdown-item").on("click", function () {
+    const selectedView = $(this).closest("li").data("view");
+
+    // Gửi yêu cầu AJAX để lưu layout trên server
+    $.ajax({
+      url: "../api/note/update_view_preference.php",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ view: selectedView }),
+      success: function (response) {
+        if (response.success) {
+          const wrapper = $(".wrapper");
+          if (wrapper.length > 0) {
+            wrapper.removeClass("list-view");
+
+            if (selectedView === "list") {
+              wrapper.addClass("list-view");
+            }
+          }
+
+          $(".navbar-nav .nav-item a").removeClass("active");
+          $(this).addClass("active");
+        } else {
+          alert("Không thể lưu thay đổi layout!");
+        }
+      },
+      error: function (error) {
+        console.error("Có lỗi xảy ra:", error);
+      },
+    });
+  });
+});
+
+// SCROLL TO TOP
+$(window).scroll(function () {
+  if ($(window).scrollTop() > 300) {
+    $(".bx.bxs-chevron-up").css({
+      opacity: "1",
+      "pointer-events": "auto",
+    });
+  } else {
+    $(".bx.bxs-chevron-up").css({
+      opacity: "0",
+      "pointer-events": "none",
+    });
+  }
+});
+
+$(".bx.bxs-chevron-up").click(function () {
+  $("html, body").animate({ scrollTop: 0 }, 400);
+});
+
+// POPUP EDIT PROFILE FORM
+document.querySelector("#edit_avatar").addEventListener("change", function (e) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      document.querySelector("#avatar_preview").src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});

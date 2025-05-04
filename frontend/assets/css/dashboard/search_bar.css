@@ -1,0 +1,20 @@
+/* Offcanvas */
+#searchOffcanvas,
+#searchOffcanvas.show {
+  background-color: #f6f3ef !important;
+  min-height: 160px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+#input-field {
+  font-size: 15px;
+  background: #fff;
+  height: 50px;
+  width: 100%;
+  padding: 0 10px 0 45px;
+  border: 1px solid #87848a;
+  border-radius: 15px;
+  outline: none;
+  transition: 0.2s ease;
+}

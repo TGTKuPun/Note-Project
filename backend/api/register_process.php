@@ -24,7 +24,7 @@
 
         $stmt = $con->prepare("INSERT INTO tb_users (firstname, lastname, email, username, user_pass, email_token) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssss", $firstname, $lastname, $email, $username, $hashed_password, $email_token);
-        
+
         if ($stmt->execute()) {
             $new_user_id = $stmt->insert_id;
 
@@ -40,8 +40,7 @@
                 "status" => "success",
                 "message" => "Registration successful.",
             ]);
-        } 
-        else {
+        } else {
             echo json_encode([
                 "status" => "error",
                 "message" => "Error: " . $stmt->error,

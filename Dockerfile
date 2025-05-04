@@ -6,10 +6,8 @@ RUN a2enmod rewrite
 
 WORKDIR /var/www/html/
 
-COPY ./backend/api /var/www/html/api
-
 COPY ./frontend /var/www/html/
 
-COPY . .
+COPY ./backend/api /var/www/html/api
 
 CMD ["apache2-foreground"]

@@ -1,0 +1,51 @@
+/* Avatar preview container */
+.avatar-preview-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Avatar Preview */
+.avatar-preview {
+  width: 55px;
+  height: auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Input file */
+#edit_avatar {
+  display: block;
+  width: auto;
+  margin: auto 0;
+  padding: 5px;
+  font-size: 14px;
+  border: none;
+  text-align: center;
+}
+
+.row.name {
+  display: flex;
+  justify-content: space-between;
+}
+
+.name-field {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.name-field:last-child {
+  margin-right: 0;
+}
+
+#edit_email[readonly] {
+  background-color: #f0f0f0; /* Màu xám nhạt */
+  color: #777; /* Màu chữ xám */
+  border: 1px solid #ccc; /* Màu viền nhạt */
+}

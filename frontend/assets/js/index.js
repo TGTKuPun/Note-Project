@@ -32,11 +32,11 @@ $(document).ready(function () {
   $("#login").on("submit", function (e) {
     e.preventDefault();
 
-    const username = $("#username").val().trim();
+    const email = $("#email").val().trim();
     const password = $("#password").val().trim();
     const remember = $("#login-check").is(":checked") ? 1 : 0;
 
-    if (!username || !password) {
+    if (!email || !password) {
       Swal.fire({
         icon: "warning",
         title: "Missing Info",
@@ -51,7 +51,7 @@ $(document).ready(function () {
       method: "POST",
       dataType: "json",
       data: {
-        username: username,
+        email: email,
         password: password,
         "remember-me": remember,
       },
