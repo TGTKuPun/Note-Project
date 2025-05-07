@@ -286,7 +286,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
   <!-- Note Section -->
   <div class="wrapper list-view">
     <!-- Box_add -->
-    <li class="add-note">
+    <li class="add-note list-view">
       <div class="icon"><i class="bx bx-plus"></i></div>
       <p>Add new note</p>
     </li>

@@ -329,7 +329,7 @@ function fetch_label() {
         li.appendChild(a);
         dropdown.appendChild(li);
 
-        if (index < data.length - 1) {
+        if (index < data.length - 2) {
           const hr = document.createElement("hr");
           hr.classList.add("dropdown-divider");
           dropdown.appendChild(hr);
@@ -395,11 +395,14 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           const wrapper = $(".wrapper");
+          const add_note = $(".add-note");
           if (wrapper.length > 0) {
             wrapper.removeClass("list-view");
+            add_note.removeClass("list-view");
 
             if (selectedView === "list") {
               wrapper.addClass("list-view");
+              add_note.addClass("list-view");
             }
           }
 
@@ -436,6 +439,7 @@ $(".bx.bxs-chevron-up").click(function () {
 });
 
 // POPUP EDIT PROFILE FORM
+// Change immediately the new avatar to review
 document.querySelector("#edit_avatar").addEventListener("change", function (e) {
   const file = e.target.files[0];
   if (file) {

@@ -210,3 +210,53 @@ header {
   display: flex !important;
   flex-direction: column;
 }
+
+.wrapper.list-view li:not(.add-note.list-view, .settings li) {
+  min-height: 265px;
+  list-style: none;
+  background-color: #fff;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  padding: 15px 20px 20px;
+  width: 100%;
+}
+
+.add-note.list-view {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  min-height: 50px;
+}
+
+.add-note.list-view .icon {
+  height: 40px;
+  width: 40px;
+  color: #f3da54;
+  font-size: 28px;
+  border-radius: none;
+  border: none;
+}
+
+.add-note.list-view p {
+  color: #f3da54;
+  margin: 0 auto;
+}
+
+.add-note.list-view:hover {
+  background-color: var(--primary-color);
+}
+
+.add-note.list-view:hover p,
+.add-note.list-view:hover .icon {
+  color: #fff;
+}
+
+/* NOTE */
+.wrapper.list-view .note span img {
+  max-width: 460px;
+  height: auto;
+  object-fit: contain;
+  margin-top: 10px;
+}
