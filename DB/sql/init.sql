@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS tb_users (
 CREATE TABLE IF NOT EXISTS tb_notes (
   `note_id` INT AUTO_INCREMENT PRIMARY KEY,
   `note_title` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL,
-  `note_desc` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL,
+  `note_desc` MEDIUMTEXT COLLATE utf8_unicode_ci NOT NULL,
   `note_date` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` INT,
   `label_id` INT

@@ -47,10 +47,11 @@ nav {
   gap: 15px;
   grid-template-columns: repeat(auto-fill, 265px);
   justify-content: center;
+  align-items: start;
 }
 
 .wrapper li {
-  height: 250px;
+  min-height: 265px;
   list-style: none;
   background-color: #fff;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
@@ -114,6 +115,13 @@ header {
   line-height: 1.5;
 }
 
+.note span img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
 .labels span {
   display: inline-block;
 }
@@ -141,6 +149,8 @@ header {
 
 .settings .menu {
   position: absolute;
+  max-height: 200px;
+  overflow-y: auto;
   bottom: 0;
   right: -10px;
   padding: 5px 0;
@@ -161,6 +171,8 @@ header {
   align-items: center;
   justify-content: flex-start;
   height: 25px !important;
+  min-height: 25px !important;
+  overflow: hidden;
   cursor: pointer !important;
   border-radius: 0 !important;
   padding: 17px 15px;

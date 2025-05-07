@@ -55,7 +55,7 @@ const Popup_EditProfile = document.querySelector(".popup-box-edit-profile");
 const Btn_profile_close = document.querySelector("#close_profile_popup");
 
 const Tag_title = Box_popup.querySelector("input");
-const Tag_desc = Box_popup.querySelector("textarea");
+const Tag_desc = Box_popup.querySelector("#note_desc");
 const Tag_label = Box_popup.querySelector("#label");
 
 // prettier-ignore
@@ -70,26 +70,27 @@ let notes = JSON.parse(localStorage.getItem("notes") || "[]");
 function showNotes(notes_to_show) {
   document.querySelectorAll(".note").forEach((note) => note.remove());
   notes_to_show.forEach((note) => {
-    let li = `<li class="note" data-labels="${note.label_name || ''}">
+    let li = `<li class="note" data-id="${note.note_id}" data-title="${encodeURIComponent(note.note_title)}" data-desc="${encodeURIComponent(note.note_desc)}"  data-labels="${note.label_name || ''}">
                 <div class="details">
                   <p>${note.note_title}</p>
-                  <span>${note.note_desc}</span>
                   <div class="label">
                     <span>${note.label_name || 'No label'}</span>
                   </div>
+                  <span>${note.note_desc}</span>
                 </div>
                 <div class="bottom-content">
                   <span>${note.note_date}</span>
                   <div class="settings">
                     <i onclick="showMenu(this)" class="bx bx-dots-horizontal-rounded"></i>
                     <ul class="menu">
-                      <li onclick="updateNote(${note.note_id}, \`${note.note_title}\`, \`${note.note_desc}\`, \`${note.label_name}\`)"><i class="bx bx-edit-alt"></i><span>Edit</span></li>
+                      <li><i class="bx bx-edit-alt"></i><span>Edit</span></li>
                       <li onclick="deleteNote(${note.note_id})"><i class="bx bx-trash-alt"></i><span>Delete</span></li>
                     </ul>
                   </div>
                 </div>
               </li>`;
     Box_add.insertAdjacentHTML("afterend", li);
+    console.log(li);
   });
 }
 
@@ -154,7 +155,7 @@ Btn_close.addEventListener("click", () => {
   isUpdated = false;
   updateId = null;
   Tag_title.value = "";
-  Tag_desc.value = "";
+  Tag_desc.innerHTML = "";
   Tag_label.value = "";
   Btn_add.innerText = "Add Note";
   Title_popup.innerText = "Add a new Note";
@@ -229,7 +230,7 @@ function updateNote(note_id, note_title, note_desc, label_name) {
   if (updateId !== -1) {
     isUpdated = true;
     Tag_title.value = note_title;
-    Tag_desc.value = note_desc;
+    Tag_desc.innerHTML = note_desc;
     Tag_label.value = label_name;
     Btn_add.innerText = "Update Note";
     Title_popup.innerText = "Update a Note";
@@ -245,7 +246,7 @@ Btn_add.addEventListener("click", (e) => {
   e.preventDefault();
 
   let Note_title = Tag_title.value;
-  let Note_desc = Tag_desc.value;
+  let Note_desc = Tag_desc.innerHTML;
   let Note_label = Tag_label.value;
 
   if (Note_title || Note_desc) {
@@ -443,5 +444,19 @@ document.querySelector("#edit_avatar").addEventListener("change", function (e) {
       document.querySelector("#avatar_preview").src = event.target.result;
     };
     reader.readAsDataURL(file);
+  }
+});
+
+document.addEventListener("click", function (e) {
+  if (e.target.closest(".menu li span")?.innerText === "Edit") {
+    const noteEl = e.target.closest("li.note");
+    if (!noteEl) return;
+
+    const note_id = parseInt(noteEl.dataset.id);
+    const note_title = decodeURIComponent(noteEl.dataset.title);
+    const note_desc = decodeURIComponent(noteEl.dataset.desc);
+    const note_label = decodeURIComponent(noteEl.dataset.label);
+
+    updateNote(note_id, note_title, note_desc, note_label);
   }
 });

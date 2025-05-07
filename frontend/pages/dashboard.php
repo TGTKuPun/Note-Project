@@ -223,9 +223,11 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
           </div>
           <!-- Description -->
           <div class="row desc">
+            <!-- Thêm input ẩn để lưu HTML mô tả -->
+            <input type="hidden" name="note_desc" id="hidden_note_desc">
             <label for="">Description</label>
             <!-- <textarea name="description" id="note_desc"></textarea> -->
-            <div id="note_desc" contenteditable="true" style="border: 1px solid #ccc; min-height: 150px; padding: 10px;">
+            <div id="note_desc" name="description" contenteditable="true" style="border: 1px solid #ccc; min-height: 150px; padding: 10px;">
               <!-- Người dùng có thể dán văn bản và hình ảnh vào đây -->
             </div>
           </div>
