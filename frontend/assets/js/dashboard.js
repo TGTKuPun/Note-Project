@@ -83,8 +83,8 @@ function showNotes(notes_to_show) {
                   <div class="settings">
                     <i onclick="showMenu(this)" class="bx bx-dots-horizontal-rounded"></i>
                     <ul class="menu">
-                      <li onclick="updateNote(${note.note_id}, \`${note.note_title}\`, \`${note.note_desc}\`, \`${note.label_name}\`)"><i class="bx bx-edit-alt"></i>Edit</li>
-                      <li onclick="deleteNote(${note.note_id})"><i class="bx bx-trash-alt"></i>Delete</li>
+                      <li onclick="updateNote(${note.note_id}, \`${note.note_title}\`, \`${note.note_desc}\`, \`${note.label_name}\`)"><i class="bx bx-edit-alt"></i><span>Edit</span></li>
+                      <li onclick="deleteNote(${note.note_id})"><i class="bx bx-trash-alt"></i><span>Delete</span></li>
                     </ul>
                   </div>
                 </div>
@@ -431,7 +431,7 @@ $(window).scroll(function () {
 });
 
 $(".bx.bxs-chevron-up").click(function () {
-  $("html, body").animate({ scrollTop: 0 }, 400);
+  $("html, body").animate({ scrollTop: 0 }, 200);
 });
 
 // POPUP EDIT PROFILE FORM

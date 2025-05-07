@@ -2,7 +2,7 @@
 .sub-menu-wrap {
   position: absolute;
   top: 7%;
-  right: 13%;
+  right: 7%;
   width: 230px;
   max-height: 0;
   overflow: hidden;
@@ -18,7 +18,7 @@
   padding: 10px;
   margin: 10px;
   border-radius: 6px;
-  border: 1px solid #ebebeb;
+  border: 2px solid #ebebeb;
 }
 
 .user-info {

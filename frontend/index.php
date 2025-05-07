@@ -104,15 +104,15 @@ if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_email'])) {
             </div>
           </div>
           <div class="input-box">
-            <input type="email" class="input-field" name="email" id="email" placeholder="Email" />
+            <input type="email" class="input-field" name="new-email" id="new-email" placeholder="Email" />
             <i class="bx bx-envelope"></i>
           </div>
           <div class="input-box">
-            <input type="text" class="input-field" name="username" id="new-username" placeholder="Username" />
+            <input type="text" class="input-field" name="new-username" id="new-username" placeholder="Username" />
             <i class="bx bx-user"></i>
           </div>
           <div class="input-box">
-            <input type="password" class="input-field" name="password" id="new-password" placeholder="Password" />
+            <input type="password" class="input-field" name="new-password" id="new-password" placeholder="Password" />
             <i class="bx bx-lock-alt"></i>
           </div>
           <div class="input-box">
@@ -124,8 +124,6 @@ if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_email'])) {
           </div>
           <div class="two-col">
             <div class="one">
-              <input type="checkbox" name="remember-me" id="register-check">
-              <label for="register-check">Remember me</label>
             </div>
             <div class="two">
               <label for=""><a href="#">Ton Duc Thang University</a></label>

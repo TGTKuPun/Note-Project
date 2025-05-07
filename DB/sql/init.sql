@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS tb_labels (
 -- Create tb_preferences Table
 CREATE TABLE IF NOT EXISTS tb_preferences (
   `user_id` INT PRIMARY KEY,
-  `view` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL,
-  `theme` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL
+  `view` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT 'grid',
+  `theme` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT 'theme'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Inserted Data

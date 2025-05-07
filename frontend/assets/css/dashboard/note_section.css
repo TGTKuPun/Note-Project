@@ -157,12 +157,20 @@ header {
 }
 
 .settings .menu li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   height: 25px !important;
   cursor: pointer !important;
   border-radius: 0 !important;
   padding: 17px 15px;
-  justify-content: flex-start;
   box-shadow: none;
+  padding-right: 8px;
+  gap: 8px;
+}
+
+.settings .menu span {
+  margin: 0 auto;
 }
 
 .settings .menu li:hover {

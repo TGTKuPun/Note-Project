@@ -90,12 +90,12 @@ $(document).ready(function () {
   $("#register").on("submit", function (e) {
     e.preventDefault();
 
-    const $submitBtn = $("#register .submit");
+    const $submitBtn = $(this).find(".submit");
     $submitBtn.prop("disabled", true).val("Processing...");
 
     const firstname = $("#firstname").val().trim();
     const lastname = $("#lastname").val().trim();
-    const email = $("#email").val().trim();
+    const email = $("#new-email").val().trim();
     const username = $("#new-username").val().trim();
     const password = $("#new-password").val().trim();
     const confirm_password = $("#confirm-password").val().trim();
@@ -141,7 +141,7 @@ $(document).ready(function () {
       data: {
         firstname: firstname,
         lastname: lastname,
-        email: email,
+        "new-email": email,
         "new-username": username,
         "new-password": password,
         "remember-me": remember,
@@ -155,7 +155,7 @@ $(document).ready(function () {
             showConfirmButton: false,
             timer: 1500,
           }).then(() => {
-            window.location.href = "pages/dashboard.php";
+            window.location.href = "index.php";
           });
         } else {
           Swal.fire({

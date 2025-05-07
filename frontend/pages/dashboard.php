@@ -5,6 +5,7 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['user_email'])) {
   if (isset($_COOKIE['user_id']) && isset($_SESSION['user_email'])) {
     $_SESSION['user_id'] = $_COOKIE['user_id'];
     $_SESSION['user_email'] = $_COOKIE['user_email'];
+    $_SESSION['username'] = $_COOKIE['username'];
   } else {
     header('Location: ../index.php');
     exit();
@@ -95,7 +96,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
       <div class="d-flex align-items-center justify-content-center">
         <img src="../assets/uploads/avatar/<?= isset($avatar) && $avatar ? $avatar : 'default.webp' ?>" alt="" class="rounded-circle" id="profile_1" style="width: 45px; height: 45px; object-fit: cover;" onclick="toggleProfile()">
         <i class='bx bx-chevron-down fs-4' onclick="toggleProfile()"></i>
-        <div class="sub-menu-wrap" id="subMenu">
+        <div class="container sub-menu-wrap" id="subMenu">
           <div class="sub-menu">
             <div class="user-info">
               <img src="../assets/uploads/avatar/<?= isset($avatar) && $avatar ? $avatar : 'default.webp' ?>" alt="" id="profile_2">
@@ -176,9 +177,6 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
             <ul class="dropdown-menu" id="label-menu">
             </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Trash</a>
-          </li>
         </ul>
       </div>
     </div>
@@ -209,7 +207,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
           <i class="bx bx-x"></i>
         </header>
         <!-- Main Content -->
-        <form action="#">
+        <form action="#" method="POST" enctype="multipart/form-data">
           <!-- Title -->
           <div class="row title">
             <label for="note_title">Title</label>
@@ -226,7 +224,10 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
           <!-- Description -->
           <div class="row desc">
             <label for="">Description</label>
-            <textarea name="description" id="note_desc"></textarea>
+            <!-- <textarea name="description" id="note_desc"></textarea> -->
+            <div id="note_desc" contenteditable="true" style="border: 1px solid #ccc; min-height: 150px; padding: 10px;">
+              <!-- Người dùng có thể dán văn bản và hình ảnh vào đây -->
+            </div>
           </div>
           <button>Add Note</button>
         </form>
