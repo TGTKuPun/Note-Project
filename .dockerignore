@@ -1,6 +1,6 @@
 DB/data/
 .env
-backend/api/vendor/
+/vendor/
 *.log
 .DS_Store
 .git
