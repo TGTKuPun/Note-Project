@@ -26,6 +26,10 @@ services:
       - ./backend/api:/var/www/html/api
     depends_on:
       - mysql-server
+    command: >
+      sh -c "cd /var/www/html/api &&
+             composer install &&
+             apache2-foreground"
 
   # phpMyAdmin service
   phpmyadmin:

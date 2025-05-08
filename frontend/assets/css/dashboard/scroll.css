@@ -1,0 +1,22 @@
+/* Thanh cuộn tổng thể */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track (nền thanh cuộn) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+/* Thanh cuộn (thumb) */
+::-webkit-scrollbar-thumb {
+  background-color: #c6cd30;
+  border-radius: 5px;
+  border: 2px solid #f1f1f1;
+}
+
+/* Hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #c6cd30;
+}

@@ -1,2 +1,2 @@
-# Ignore MySQL data
-DB/data/
+/backend/api/vendor/
+/DB/data/

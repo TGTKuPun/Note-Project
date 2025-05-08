@@ -206,12 +206,12 @@ header {
 /* ======= NOTE SECTION ======= */
 .wrapper.list-view {
   margin: 50px !important;
-  gap: 15px !important;
+  gap: 0 !important;
   display: flex !important;
   flex-direction: column;
 }
 
-.wrapper.list-view li:not(.add-note.list-view, .settings li) {
+/* .wrapper.list-view li:not(.add-note, .settings li) {
   min-height: 265px;
   list-style: none;
   background-color: #fff;
@@ -219,44 +219,82 @@ header {
   border-radius: 5px;
   padding: 15px 20px 20px;
   width: 100%;
+} */
+
+.wrapper.list-view li:not(.add-note, .settings li) {
+  min-height: 150px;
+  list-style: none;
+  background-color: #fff;
+  box-shadow: none;
+  padding: 15px 20px 20px;
+  width: 100%;
+  border-radius: none;
 }
 
-.add-note.list-view {
+.wrapper.list-view .add-note {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   background-color: #fff;
   min-height: 50px;
+  border: 2px solid #f3da54;
+  margin-bottom: 20px;
 }
 
-.add-note.list-view .icon {
-  height: 40px;
-  width: 40px;
+.wrapper.list-view .add-note .icon {
+  height: 30px;
+  width: 30px;
   color: #f3da54;
   font-size: 28px;
   border-radius: none;
   border: none;
 }
 
-.add-note.list-view p {
+.wrapper.list-view .add-note p {
   color: #f3da54;
   margin: 0 auto;
 }
 
-.add-note.list-view:hover {
+.wrapper.list-view .add-note:hover {
   background-color: var(--primary-color);
 }
 
-.add-note.list-view:hover p,
-.add-note.list-view:hover .icon {
+.wrapper.list-view .add-note:hover p,
+.wrapper.list-view .add-note:hover .icon {
   color: #fff;
 }
 
 /* NOTE */
+
+.wrapper.list-view .note .details {
+  display: grid;
+  grid-template-columns: 2fr 8fr 2fr;
+  column-gap: 10px;
+  align-items: center;
+}
+
+.wrapper.list-view .note .details > *:not(:first-child) {
+  border-left: 1px solid #ccc; /* hoặc màu bạn muốn */
+  padding-left: 10px; /* tạo khoảng cách sau đường kẻ */
+}
+
+.wrapper.list-view .note .details p,
+.wrapper.list-view .note .details span,
+.wrapper.list-view .note .details .label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.wrapper.list-view .note .details p {
+  text-align: center;
+  margin: auto;
+}
+
 .wrapper.list-view .note span img {
-  max-width: 460px;
-  height: auto;
-  object-fit: contain;
+  max-width: 220px;
+  max-height: 150px;
+  object-fit: cover;
   margin-top: 10px;
 }

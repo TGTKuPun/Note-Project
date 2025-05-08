@@ -63,6 +63,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
 
   <!-- Custome CSS -->
   <link rel="stylesheet" href="../assets/css/reset.css" />
+  <link rel="stylesheet" href="../assets/css/dashboard/scroll.css" />
   <link rel="stylesheet" href="../assets/css/dashboard/note_section.css" />
   <link rel="stylesheet" href="../assets/css/dashboard/profile.css" />
   <link rel="stylesheet" href="../assets/css/dashboard/create_note.css" />
@@ -284,9 +285,9 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
 
 
   <!-- Note Section -->
-  <div class="wrapper list-view">
+  <div class="wrapper">
     <!-- Box_add -->
-    <li class="add-note list-view">
+    <li class="add-note">
       <div class="icon"><i class="bx bx-plus"></i></div>
       <p>Add new note</p>
     </li>
@@ -318,26 +319,35 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
 
       const prefer_element = document.getElementById('user_preferences');
 
+      // Đọc từ localStorage
+      let theme = localStorage.getItem("theme") || "light";
+      let view = localStorage.getItem("view") || "grid";
+
+      // Nếu element có dataset -> ưu tiên (người dùng vừa chọn mới)
       if (prefer_element) {
-        const theme = prefer_element.dataset.theme || "light";
-        const view = prefer_element.dataset.view || "grid";
+        if (prefer_element.dataset.theme) {
+          theme = prefer_element.dataset.theme;
+          localStorage.setItem("theme", theme);
+        }
+        if (prefer_element.dataset.view) {
+          view = prefer_element.dataset.view;
+          localStorage.setItem("view", view);
+        }
+      }
 
-        // Apply theme
-        // if (theme === "dark") {
-        //   document.body.classList.add("dark");
-        // } else {
-        //   document.body.classList.remove("dark");
-        // }
+      // Áp dụng theme
+      if (theme === "dark") {
+        document.body.classList.add("dark");
+      } else {
+        document.body.classList.remove("dark");
+      }
 
-        // Apply layout view
-        const note_section = document.querySelector(".wrapper");
-
-        if (note_section) {
-          note_section.classList.remove("list-view"); // reset class
-
-          if (view === "list") {
-            note_section.classList.add("list-view");
-          }
+      // Áp dụng layout view
+      const note_section = document.querySelector(".wrapper");
+      if (note_section) {
+        note_section.classList.remove("list-view"); // reset
+        if (view === "list") {
+          note_section.classList.add("list-view");
         }
       }
     });

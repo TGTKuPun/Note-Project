@@ -73,10 +73,10 @@ function showNotes(notes_to_show) {
     let li = `<li class="note" data-id="${note.note_id}" data-title="${encodeURIComponent(note.note_title)}" data-desc="${encodeURIComponent(note.note_desc)}"  data-labels="${note.label_name || ''}">
                 <div class="details">
                   <p>${note.note_title}</p>
+                  <span>${note.note_desc}</span>
                   <div class="label">
                     <span>${note.label_name || 'No label'}</span>
                   </div>
-                  <span>${note.note_desc}</span>
                 </div>
                 <div class="bottom-content">
                   <span>${note.note_date}</span>
@@ -90,7 +90,6 @@ function showNotes(notes_to_show) {
                 </div>
               </li>`;
     Box_add.insertAdjacentHTML("afterend", li);
-    console.log(li);
   });
 }
 
@@ -398,11 +397,11 @@ $(document).ready(function () {
           const add_note = $(".add-note");
           if (wrapper.length > 0) {
             wrapper.removeClass("list-view");
-            add_note.removeClass("list-view");
+            // add_note.removeClass("list-view");
 
             if (selectedView === "list") {
               wrapper.addClass("list-view");
-              add_note.addClass("list-view");
+              // add_note.addClass("list-view");
             }
           }
 
