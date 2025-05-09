@@ -94,7 +94,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
       <div>
         <span class="h1 m-0">NOTE DASHBOARD</span>
       </div>
-      <div class="d-flex align-items-center justify-content-center">
+      <div class="d-flex align-items-center justify-content-center form">
         <img src="../assets/uploads/avatar/<?= isset($avatar) && $avatar ? $avatar : 'default.webp' ?>" alt="" class="rounded-circle" id="profile_1" style="width: 45px; height: 45px; object-fit: cover;" onclick="toggleProfile()">
         <i class='bx bx-chevron-down fs-4' onclick="toggleProfile()"></i>
         <div class="container sub-menu-wrap" id="subMenu">
@@ -115,9 +115,9 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
               <p>Settings & Privacy</p>
               <span><i class='bx bx-chevron-right'></i></span>
             </a>
-            <a href="#" class="sub-menu-link">
-              <i class='bx bx-help-circle fs-3'></i>
-              <p>Help & Support</p>
+            <a href="#" class="sub-menu-link" id="btn_change_password">
+              <i class='bx bx-lock fs-3'></i>
+              <p>Change Password</p>
               <span><i class='bx bx-chevron-right'></i></span>
             </a>
             <a href="#" class="sub-menu-link" onclick="logout()">
@@ -144,25 +144,21 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
         id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#" id="all-labels">All</a>
+            <a class="nav-link active" aria-current="page" href="#" id="all-labels"><i class='bx bxs-home-alt-2'></i> All</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" id="all-labels">Favorite</a>
+            <a class="nav-link" href="#" id="all-labels"><i class='bx bxs-heart'></i> My Favorite</a>
           </li>
           <li class="nav-item dropdown">
             <!-- prettier-ignore -->
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Layout</a>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class='bx bxs-layout'></i> Layout</a>
             <ul class="dropdown-menu" id="layout-menu">
               <li class="d-flex align-items-center justify-content-center ms-1" data-view="list">
-                <i class='bx bx-list-ul'></i>
-                <a class="dropdown-item ms-0 ps-2" href="#">Row</a>
+                <a class="dropdown-item ms-0 ps-2" href="#"><i class='bx bx-list-ul'></i> Row</a>
               </li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
+              <hr class="dropdown-divider" />
               <li class="d-flex align-items-center justify-content-center ms-1" data-view="grid">
-                <i class='bx bxs-grid-alt'></i>
-                <a class="dropdown-item ms-0 ps-2" href="#">Grid</a>
+                <a class="dropdown-item ms-0 ps-2" href="#"><i class='bx bxs-grid-alt'></i> Grid</a>
               </li>
             </ul>
           </li>
@@ -173,9 +169,13 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false">
-              Labels
+              <i class='bx bx-filter'></i> Labels
             </a>
             <ul class="dropdown-menu" id="label-menu">
+              <li class="text-center">
+                <a class="dropdown-item" href="#" style="color: #996D60"><i class='bx bx-plus-circle'></i> New Label</a>
+              </li>
+              <hr class="dropdown-divider">
             </ul>
           </li>
         </ul>
@@ -283,6 +283,34 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
     </div>
   </div>
 
+  <!-- Popup Change Password -->
+  <div class="popup-box-change-password" id="popup-change-password">
+    <div class="popup">
+      <div class="content">
+        <header>
+          <p>Change Password</p>
+          <i class="bx bx-x" id="close_change_password_popup"></i>
+        </header>
+        <form action="#" id="editPasswordForm" method="POST">
+          <!-- Current Password -->
+          <div class="row email">
+            <label for="edit_email">Current Password</label>
+            <input type="password" name="current_password" id="current_password" placeholder="Current password">
+          </div>
+          <!-- New Password -->
+          <div class="row firstname">
+            <label for="edit_firstname">New Password</label>
+            <input type="password" name="new_password" id="new_password" placeholder="New password">
+          </div>
+          <!-- Confirm Password -->
+          <div class="row lastname">
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm new password">
+          </div>
+          <button type="submit">Change Password</button>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <!-- Note Section -->
   <div class="wrapper">
@@ -344,10 +372,14 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
 
       // Áp dụng layout view
       const note_section = document.querySelector(".wrapper");
+      // const header_row = document.querySelector(".header-row");
       if (note_section) {
         note_section.classList.remove("list-view"); // reset
         if (view === "list") {
           note_section.classList.add("list-view");
+          // header_row.show();
+        } else {
+          // header_row.hide();
         }
       }
     });

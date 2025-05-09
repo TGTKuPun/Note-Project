@@ -49,3 +49,14 @@
   color: #777; /* Màu chữ xám */
   border: 1px solid #ccc; /* Màu viền nhạt */
 }
+
+.popup-box-edit-profile .row.username input,
+.popup-box-edit-profile .row.email input,
+.popup-box-edit-profile .row.firstname input,
+.popup-box-edit-profile .row.lastname input {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-radius: none;
+  border-bottom: 1px solid #C5AD96;
+}

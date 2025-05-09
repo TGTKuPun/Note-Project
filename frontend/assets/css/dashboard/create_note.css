@@ -1,6 +1,7 @@
 /* ======= POPUP-BOX ======= */
 .popup-box,
-.popup-box-edit-profile {
+.popup-box-edit-profile,
+.popup-box-change-password {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +12,8 @@
 }
 
 .popup-box .popup,
-.popup-box-edit-profile .popup {
+.popup-box-edit-profile .popup,
+.popup-box-change-password .popup {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -25,7 +27,9 @@
 .popup-box,
 .popup-box .popup,
 .popup-box-edit-profile,
-.popup-box-edit-profile .popup {
+.popup-box-edit-profile .popup,
+.popup-box-change-password,
+.popup-box-change-password .popup {
   opacity: 0;
   pointer-events: none;
   transition: all 0.25s ease;
@@ -34,7 +38,9 @@
 .popup-box.show,
 .popup-box.show .popup,
 .popup-box-edit-profile.show,
-.popup-box-edit-profile.show .popup {
+.popup-box-edit-profile.show .popup,
+.popup-box-change-password.show,
+.popup-box-change-password.show .popup {
   opacity: 1;
   pointer-events: auto;
 }
@@ -123,4 +129,8 @@ form .row label {
   margin-top: 10px;
   max-height: 300px;
   object-fit: contain;
+}
+
+.popup-box-change-password {
+  overflow: auto;
 }

@@ -151,11 +151,11 @@ $(document).ready(function () {
           Swal.fire({
             icon: "success",
             title: "Registration Successful",
-            text: "Redirecting to dashboard...",
+            text: "Processing...",
             showConfirmButton: false,
             timer: 1500,
           }).then(() => {
-            window.location.href = "index.php";
+            window.location.href = "/pages/active.php?otp=" + response.otp;
           });
         } else {
           Swal.fire({

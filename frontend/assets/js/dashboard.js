@@ -50,9 +50,16 @@ const Box_popup = document.querySelector(".popup-box");
 const Title_popup = Box_popup.querySelector("header p");
 const Btn_close = Box_popup.querySelector("header i");
 const Btn_add = Box_popup.querySelector("button");
+// Edit Profile Field
 const Btn_editProfile = document.querySelector("#btn_edit_profile");
 const Popup_EditProfile = document.querySelector(".popup-box-edit-profile");
 const Btn_profile_close = document.querySelector("#close_profile_popup");
+// Change Password Field
+const Btn_changePassword = document.querySelector("#btn_change_password");
+// prettier-ignore
+const Popup_changePassword = document.querySelector(".popup-box-change-password");
+// prettier-ignore
+const Btn_change_password_close = document.querySelector("#close_change_password_popup");
 
 const Tag_title = Box_popup.querySelector("input");
 const Tag_desc = Box_popup.querySelector("#note_desc");
@@ -69,6 +76,7 @@ let notes = JSON.parse(localStorage.getItem("notes") || "[]");
 // prettier-ignore
 function showNotes(notes_to_show) {
   document.querySelectorAll(".note").forEach((note) => note.remove());
+
   notes_to_show.forEach((note) => {
     let li = `<li class="note" data-id="${note.note_id}" data-title="${encodeURIComponent(note.note_title)}" data-desc="${encodeURIComponent(note.note_desc)}"  data-labels="${note.label_name || ''}">
                 <div class="details">
@@ -149,6 +157,10 @@ Btn_editProfile.addEventListener("click", () => {
   Popup_EditProfile.classList.add("show");
 });
 
+Btn_changePassword.addEventListener("click", () => {
+  Popup_changePassword.classList.add("show");
+});
+
 Btn_close.addEventListener("click", () => {
   // Reset
   isUpdated = false;
@@ -163,6 +175,10 @@ Btn_close.addEventListener("click", () => {
 
 Btn_profile_close.addEventListener("click", () => {
   Popup_EditProfile.classList.remove("show");
+});
+
+Btn_change_password_close.addEventListener("click", () => {
+  Popup_changePassword.classList.remove("show");
 });
 
 // To display setting-menu in which is clicked.
@@ -328,7 +344,7 @@ function fetch_label() {
         li.appendChild(a);
         dropdown.appendChild(li);
 
-        if (index < data.length - 2) {
+        if (index < data.length - 1) {
           const hr = document.createElement("hr");
           hr.classList.add("dropdown-divider");
           dropdown.appendChild(hr);
@@ -394,25 +410,23 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           const wrapper = $(".wrapper");
-          const add_note = $(".add-note");
+
           if (wrapper.length > 0) {
             wrapper.removeClass("list-view");
-            // add_note.removeClass("list-view");
 
             if (selectedView === "list") {
               wrapper.addClass("list-view");
-              // add_note.addClass("list-view");
             }
           }
 
           $(".navbar-nav .nav-item a").removeClass("active");
           $(this).addClass("active");
         } else {
-          alert("Không thể lưu thay đổi layout!");
+          alert("Cannot change layout!");
         }
       },
       error: function (error) {
-        console.error("Có lỗi xảy ra:", error);
+        console.error("Error occurred:", error);
       },
     });
   });
@@ -462,4 +476,48 @@ document.addEventListener("click", function (e) {
 
     updateNote(note_id, note_title, note_desc, note_label);
   }
+});
+
+// CHANGE PASSWORD FORM
+$("#editPasswordForm").on("submit", function (e) {
+  e.preventDefault();
+
+  var currentPassword = $("#current_password").val().trim();
+  var newPassword = $("#new_password").val().trim();
+  var confirmPassword = $("#confirm_password").val().trim();
+
+  if (newPassword !== confirmPassword) {
+    Popup_changePassword.classList.remove("show");
+    alert("The password must be the same");
+    return;
+  }
+
+  // Delivery data via Ajax
+  $.ajax({
+    url: "../api/change_password.php",
+    method: "POST",
+    dataType: "json",
+    data: {
+      current_password: currentPassword,
+      new_password: newPassword,
+      confirm_password: confirmPassword,
+    },
+    success: function (response) {
+      if (response.status === "success") {
+        alert("Success! " + response.message);
+        return;
+      } else {
+        alert("Error! " + response.message);
+        return;
+      }
+    },
+    error: function (xhr, status, error) {
+      console.log("XHR:", xhr.responseText);
+      console.log("Status:", status);
+      console.log("Error:", error);
+
+      alert("Something went wrong! Please try again.");
+      return;
+    },
+  });
 });
