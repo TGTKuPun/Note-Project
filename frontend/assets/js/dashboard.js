@@ -91,6 +91,7 @@ function showNotes(notes_to_show) {
                   <div class="settings">
                     <i onclick="showMenu(this)" class="bx bx-dots-horizontal-rounded"></i>
                     <ul class="menu">
+                      
                       <li><i class="bx bx-edit-alt"></i><span>Edit</span></li>
                       <li onclick="deleteNote(${note.note_id})"><i class="bx bx-trash-alt"></i><span>Delete</span></li>
                     </ul>

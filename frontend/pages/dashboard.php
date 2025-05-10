@@ -144,7 +144,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
         id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#" id="all-labels"><i class='bx bxs-home-alt-2'></i> All</a>
+            <a class="nav-link active" aria-current="page" href="#" id="all-labels"><i class='bx bxs-widget'></i> Library</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" id="all-labels"><i class='bx bxs-heart'></i> My Favorite</a>
@@ -171,7 +171,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
               aria-expanded="false">
               <i class='bx bx-filter'></i> Labels
             </a>
-            <ul class="dropdown-menu" id="label-menu">
+            <ul class="dropdown-menu" id="label-menu" style="max-height: 166px; overflow-y: auto;">
               <li class="text-center">
                 <a class="dropdown-item" href="#" style="color: #996D60"><i class='bx bx-plus-circle'></i> New Label</a>
               </li>
@@ -220,6 +220,9 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
             <select name="label" id="label">
               <option value="" disabled hidden selected>-- Select a label --</option>
               <!-- fetch labels from Server -->
+              <li class="text-center">
+                <a class="dropdown-item" href="#" style="color: #996D60"><i class='bx bx-plus-circle'></i> New Label</a>
+              </li>
             </select>
           </div>
           <!-- Description -->
