@@ -106,7 +106,7 @@ function showNotes(notes_to_show) {
 // to js object else passing an empty array to notes
 async function loadNotesFromServer() {
   try {
-    const res = await fetch("../api/note/fetch_note.php");
+    const res = await fetch("../api/Note/fetch_note.php");
     if (!res.ok) throw new Error("Fetch Failed");
 
     const data = await res.json();
@@ -223,7 +223,7 @@ function deleteNote(note_id) {
 
       // Sync with server
       $.ajax({
-        url: "../api/note/delete_note.php",
+        url: "../api/Note/delete_note.php",
         method: "POST",
         contentType: "application/json",
         dataType: "json",
@@ -290,8 +290,8 @@ Btn_add.addEventListener("click", (e) => {
     // Sync with the server
     $.ajax({
       url: isUpdated
-        ? "../api/note/update_note.php"
-        : "../api/note/save_note.php",
+        ? "../api/Note/update_note.php"
+        : "../api/Note/save_note.php",
       method: "POST",
       contentType: "application/json", // JSON you send
       dataType: "json", // JSON you receive
@@ -322,7 +322,7 @@ function fetch_label() {
   const dropdown = document.getElementById("label-menu");
 
   $.ajax({
-    url: "../api/note/fetch_label.php",
+    url: "../api/Note/fetch_label.php",
     method: "POST",
     dataType: "json",
     success: function (data) {
@@ -404,7 +404,7 @@ $(document).ready(function () {
 
     // Gửi yêu cầu AJAX để lưu layout trên server
     $.ajax({
-      url: "../api/note/update_view_preference.php",
+      url: "../api/Note/update_view_preference.php",
       method: "POST",
       contentType: "application/json",
       data: JSON.stringify({ view: selectedView }),
