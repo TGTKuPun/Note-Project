@@ -36,10 +36,17 @@ $("#verify").on("submit", function (e) {
     data: { email: input_email },
     success: function (response) {
       if (response.status === "success") {
-        // console.log("Success verified, switching form...");
         localStorage.setItem("reset_email", input_email);
         $("#reset-email").val(input_email);
-        toReset();
+        Swal.fire({
+          icon: "success",
+          title: "Token Sent",
+          text: "A token has been sent to your email.",
+          timer: 2000,
+          showConfirmButton: false,
+        }).then(() => {
+          toReset();
+        });
       } else {
         Swal.fire({
           icon: response.status === "error" ? "error" : "info",
@@ -64,6 +71,7 @@ $("#change_password").on("submit", function (e) {
   const email = $("#reset-email").val().trim();
   const new_password = $("#new-password").val().trim();
   const confirm_password = $("#confirm-password").val().trim();
+  const email_token = $("#email-token").val().trim();
 
   $.ajax({
     url: "../api/reset_password.php",
@@ -73,6 +81,7 @@ $("#change_password").on("submit", function (e) {
       email: email,
       "new-password": new_password,
       "confirm-password": confirm_password,
+      "email-token": email_token,
     },
     success: function (response) {
       if (response.status == "success") {
@@ -108,4 +117,16 @@ $(document).ready(function () {
   if (savedEmail) {
     $("#reset-email").val(savedEmail);
   }
+});
+
+// GO BACK BUTTON
+$("#go-back-login").on("click", function (e) {
+  e.preventDefault();
+  window.location.href = "../../index.php";
+});
+
+$("#go-back-verify").on("click", function (e) {
+  e.preventDefault();
+  console.log("Click");
+  toVerify();
 });

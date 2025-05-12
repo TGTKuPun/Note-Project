@@ -38,6 +38,15 @@ nav {
   order: -1 !important;
 }
 
+/* .navbar-nav .nav-link:hover {
+  color: var(--primary-color);
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: transparent !important;
+  color: var(--primary-color);
+} */
+
 /* ======= GRID-VIEW ======== */
 /* ======= NOTE SECTION ======= */
 .wrapper {

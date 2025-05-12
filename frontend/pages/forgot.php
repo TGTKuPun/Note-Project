@@ -71,7 +71,7 @@ if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_email'])) {
           </div>
           <div class="two-col">
             <div class="two">
-              <label for=""><a href="#"> <i class='bx bx-arrow-back'></i> Go back</a></label>
+              <label for=""><a href="#" id="go-back-login"> <i class='bx bx-arrow-back'></i> Go back</a></label>
             </div>
           </div>
         </div>
@@ -81,9 +81,14 @@ if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_email'])) {
       <form class="reset-container" id="change_password" method="POST">
         <div class="top">
           <header>Reset Password</header>
+          <!-- Hidden email-->
           <input type="email" name="email" id="reset-email" hidden />
           <div class="input-box">
-            <input type="password" class="input-field" name="password" id="new-password" placeholder="New Password" autocomplete="new-password" />
+            <input type="text" class="input-field" name="email-token" id="email-token" placeholder="Token sent from email" />
+            <i class='bx bxs-message-dots'></i>
+          </div>
+          <div class="input-box">
+            <input type="password" class="input-field" name="new-password" id="new-password" placeholder="New Password" autocomplete="new-password" />
             <i class="bx bx-lock-alt"></i>
           </div>
           <div class="input-box">
@@ -95,7 +100,7 @@ if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_email'])) {
           </div>
           <div class="two-col">
             <div class="two">
-              <label for=""><a href="#"> <i class='bx bx-arrow-back'></i> Go back</a></label>
+              <label for=""><a href="#" id="go-back-verify"> <i class='bx bx-arrow-back'></i> Go back</a></label>
             </div>
           </div>
         </div>

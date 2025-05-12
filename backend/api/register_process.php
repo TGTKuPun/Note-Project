@@ -20,18 +20,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
 
-    // Tạo mã OTP ngẫu nhiên
-    $otp_code = rand(100000, 999999);  // Tạo mã OTP 6 chữ số
-    $otp_expiry = date('Y-m-d H:i:s', strtotime('+10 minutes'));  // Thời gian hết hạn OTP là 10 phút sau
+    $otp_code = rand(100000, 999999);
+    $otp_expiry = date('Y-m-d H:i:s', strtotime('+10 minutes'));
 
-    // Thực hiện câu lệnh INSERT để thêm người dùng mới vào bảng tb_users
-    $stmt = $con->prepare("INSERT INTO tb_users (firstname, lastname, email, username, user_pass, activated, otp_code, otp_expiry) VALUES (?, ?, ?, ?, ?, b'0', ?, ?)");
-    $stmt->bind_param("sssssss", $firstname, $lastname, $email, $username, $hashed_password, $otp_code, $otp_expiry);
+    $email_token = bin2hex(random_bytes(16));
+
+    $stmt = $con->prepare("INSERT INTO tb_users (firstname, lastname, email, username, user_pass, activated, otp_code, otp_expiry, email_token) VALUES (?, ?, ?, ?, ?, b'0', ?, ?, ?)");
+    $stmt->bind_param("ssssssss", $firstname, $lastname, $email, $username, $hashed_password, $otp_code, $otp_expiry, $email_token);
 
     if ($stmt->execute()) {
         $new_user_id = $stmt->insert_id;
 
-        // Câu lệnh INSERT vào bảng tb_preferences
         $stmt_1 = $con->prepare("INSERT INTO tb_preferences (user_id) VALUES (?)");
         $stmt_1->bind_param("i", $new_user_id);
         $stmt_1->execute();
@@ -39,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo json_encode([
             "status" => "success",
             "message" => "Registration successful. Please enter the OTP to verify your account.",
-            "otp" => $otp_code  // Trả mã OTP về giao diện
+            "otp" => $otp_code  
         ]);
     } else {
         echo json_encode([

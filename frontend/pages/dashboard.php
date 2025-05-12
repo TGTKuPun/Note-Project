@@ -96,12 +96,12 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
       </div>
       <div class="d-flex align-items-center justify-content-center form">
         <img src="../assets/uploads/avatar/<?= isset($avatar) && $avatar ? $avatar : 'default.webp' ?>" alt="" class="rounded-circle" id="profile_1" style="width: 45px; height: 45px; object-fit: cover;" onclick="toggleProfile()">
-        <i class='bx bx-chevron-down fs-4' onclick="toggleProfile()"></i>
+        <i class='bx bx-chevron-down fs-4 chevron-icon' onclick="toggleProfile()"></i>
         <div class="container sub-menu-wrap" id="subMenu">
           <div class="sub-menu">
             <div class="user-info">
               <img src="../assets/uploads/avatar/<?= isset($avatar) && $avatar ? $avatar : 'default.webp' ?>" alt="" id="profile_2">
-              <h2 class="h3"><?= $username ?></h2>
+              <p class="h4"><?= htmlspecialchars($username) ?></p>
             </div>
             <div class="text-start" id="user_id">UID: <?= $user_id ?></div>
             <hr>
@@ -144,7 +144,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
         id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#" id="all-labels"><i class='bx bxs-widget'></i> Library</a>
+            <a class="nav-link" aria-current="page" href="#" id="all-labels"><i class='bx bxs-widget'></i> Library</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" id="all-labels"><i class='bx bxs-heart'></i> My Favorite</a>
@@ -227,12 +227,10 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
           </div>
           <!-- Description -->
           <div class="row desc">
-            <!-- Thêm input ẩn để lưu HTML mô tả -->
             <input type="hidden" name="note_desc" id="hidden_note_desc">
             <label for="">Description</label>
             <!-- <textarea name="description" id="note_desc"></textarea> -->
             <div id="note_desc" name="description" contenteditable="true" style="border: 1px solid #ccc; min-height: 150px; padding: 10px;">
-              <!-- Người dùng có thể dán văn bản và hình ảnh vào đây -->
             </div>
           </div>
           <button>Add Note</button>

@@ -40,8 +40,15 @@ function logout() {
 
 let subMenu = document.getElementById("subMenu");
 
+// function toggleProfile() {
+//   subMenu.classList.toggle("open");
+// }
+
 function toggleProfile() {
+  const chevronIcon = document.querySelector(".chevron-icon");
+
   subMenu.classList.toggle("open");
+  chevronIcon.classList.toggle("rotate");
 }
 
 // CREATE NOTE FORM
@@ -402,7 +409,6 @@ $(document).ready(function () {
   $(".dropdown-menu .dropdown-item").on("click", function () {
     const selectedView = $(this).closest("li").data("view");
 
-    // Gửi yêu cầu AJAX để lưu layout trên server
     $.ajax({
       url: "../api/Note/update_view_preference.php",
       method: "POST",

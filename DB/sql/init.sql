@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS tb_users (
   `activated` BIT(1) DEFAULT b'0',
   `otp_code` VARCHAR(10) COLLATE utf8_unicode_ci DEFAULT NULL, 
   `otp_expiry` VARCHAR(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `user_avatar` VARCHAR(100) DEFAULT 'default.webp'
+  `user_avatar` VARCHAR(100) DEFAULT 'default.webp',
+  `email_token` VARCHAR(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Create tb_notes Table
@@ -39,12 +40,12 @@ CREATE TABLE IF NOT EXISTS tb_preferences (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Inserted Data
-INSERT INTO tb_users (firstname, lastname, email, username, user_pass, activated, otp_code, otp_expiry)
+INSERT INTO tb_users (firstname, lastname, email, username, user_pass, activated, otp_code, otp_expiry, email_token)
 VALUES 
 ('Luciana', 'de Montefio', 'admin@gmail.com', 'lucy', '$2b$12$iGO.OUUL7q.Sm9QCcjGN2.xB5Xr9tIwCROV9mE4ZKLEMcBLPN9OdC', b'1',
- '123456', '2025-05-09 15:00:00'),
+ '123456', '2025-05-09 15:00:00', 'tok_admin_abc123'),
 ('Jane', 'Doe', 'jane.doe@gmail.com', 'jane_doe', '$2b$12$3WGl/7lUbdvbTXZT1.8BHevq4xXtEwkSEXsTq6lmO0uyAZQvpqOJm', b'1',
- '654321', '2025-05-09 15:00:00');
+ '654321', '2025-05-09 15:00:00', 'tok_jane_xyz789');
 
  INSERT INTO tb_labels (label_name) VALUES
 ('Work'),

@@ -38,11 +38,14 @@
   padding: 2px;
   border-radius: 50%;
   border: 1px solid #ebebeb;
-  margin-right: 15px;
+  margin-right: 8px;
 }
 
-.user-info h2 {
+.user-info p {
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .user-info hr {
@@ -88,4 +91,12 @@
   margin-top: 8px;
   margin-left: 10px;
   color: #525252;
+}
+
+.rotate {
+  transform: rotate(-180deg);
+}
+
+.chevron-icon {
+  transition: transform 0.3s ease;
 }
