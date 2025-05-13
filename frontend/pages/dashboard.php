@@ -88,11 +88,11 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
   <!-- Top of Navbar -->
   <div class="text-center">
     <div class="container d-flex justify-content-between align-items-center pt-3">
-      <div>
-        <i class="bx bx-search fs-3" onclick="openSearch()"></i>
+      <div class="search-container">
+        <i class="bx bx-search fs-3 search-icon" onclick="openSearch()"></i>
       </div>
       <div>
-        <span class="h1 m-0">NOTE DASHBOARD</span>
+        <span class="h1 m-0">TAKE NOTE</span>
       </div>
       <div class="d-flex align-items-center justify-content-center form">
         <img src="../assets/uploads/avatar/<?= isset($avatar) && $avatar ? $avatar : 'default.webp' ?>" alt="" class="rounded-circle" id="profile_1" style="width: 45px; height: 45px; object-fit: cover;" onclick="toggleProfile()">
@@ -317,7 +317,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
   <div class="wrapper">
     <!-- Box_add -->
     <li class="add-note">
-      <div class="icon"><i class="bx bx-plus"></i></div>
+      <div class="icon"><i class="bx bx-plus rotate-icon"></i></div>
       <p>Add new note</p>
     </li>
     <!-- Area of notes -->

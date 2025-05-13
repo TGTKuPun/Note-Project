@@ -187,6 +187,7 @@ Btn_profile_close.addEventListener("click", () => {
 
 Btn_change_password_close.addEventListener("click", () => {
   Popup_changePassword.classList.remove("show");
+  $("#editPasswordForm")[0].reset();
 });
 
 // To display setting-menu in which is clicked.
@@ -512,6 +513,7 @@ $("#editPasswordForm").on("submit", function (e) {
     success: function (response) {
       if (response.status === "success") {
         alert("Success! " + response.message);
+        $("#editPasswordForm")[0].reset();
         return;
       } else {
         alert("Error! " + response.message);
