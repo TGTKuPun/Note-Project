@@ -1,15 +1,30 @@
 <?php
 session_start();
 
-if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_email'])) {
-  // Lấy thông tin từ cookie
+if (!isset($_SESSION['user_id']) && isset($_COOKIE['user_id']) && isset($_COOKIE['user_email'])) {
   $_SESSION['user_id'] = $_COOKIE['user_id'];
   $_SESSION['user_email'] = $_COOKIE['user_email'];
-  $_SESSION['username'] = $_COOKIE['username'];
 
+  if (isset($_COOKIE['username'])) {
+    $_SESSION['username'] = $_COOKIE['username'];
+  }
+  if (isset($_COOKIE['firstname'])) {
+    $_SESSION['firstname'] = $_COOKIE['firstname'];
+  }
+  if (isset($_COOKIE['lastname'])) {
+    $_SESSION['lastname'] = $_COOKIE['lastname'];
+  }
+  if (isset($_COOKIE['user_avatar'])) {
+    $_SESSION['user_avatar'] = $_COOKIE['user_avatar'];
+  }
+}
+
+if (isset($_SESSION['user_id']) && isset($_SESSION['user_email'])) {
   header("Location: pages/dashboard.php");
   exit;
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

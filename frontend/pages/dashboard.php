@@ -1,18 +1,16 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_id']) && !isset($_SESSION['user_email'])) {
-  if (isset($_COOKIE['user_id']) && isset($_SESSION['user_email'])) {
-    $_SESSION['user_id'] = $_COOKIE['user_id'];
-    $_SESSION['user_email'] = $_COOKIE['user_email'];
-    $_SESSION['username'] = $_COOKIE['username'];
-    $_SESSION['firstname'] = $_COOKIE['firstname'];
-    $_SESSION['lastname'] = $_COOKIE['lastname'];
-    $_SESSION['user_avatar'] = $_COOKIE['user_avatar'];
-  } else {
-    header('Location: ../index.php');
-    exit();
-  }
+if (
+  !isset($_SESSION['user_id']) ||
+  !isset($_SESSION['user_email']) ||
+  !isset($_SESSION['username']) ||
+  !isset($_SESSION['firstname']) ||
+  !isset($_SESSION['lastname']) ||
+  !isset($_SESSION['user_avatar'])
+) {
+  header('Location: ../index.php');
+  exit();
 }
 
 $user_id = $_SESSION['user_id'];
@@ -22,7 +20,7 @@ $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
 $avatar = $_SESSION['user_avatar'];
 
-require_once(__DIR__ . '/../api/note/user_preferences.php');
+require_once __DIR__ . '/../api/note/user_preferences.php';
 
 ?>
 <!DOCTYPE html>

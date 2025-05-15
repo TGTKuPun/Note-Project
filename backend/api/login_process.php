@@ -46,12 +46,48 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["user_avatar"] = $row["user_avatar"];
 
             if ($remember) {
-                setcookie("user_id", $row["user_id"], time() + 86400, "/");
-                setcookie("user_email", $row["email"], time() + 86400, "/");
-                setcookie("username", $row["username"], time() + 86400, "/");
-                setcookie("firstname", $row["firstname"], time() + 86400, "/");
-                setcookie("lastname", $row["lastname"], time() + 86400, "/");
-                setcookie("user_avatar", $row["user_avatar"], time() + 86400, "/");
+                setcookie("user_id", $row["user_id"], [
+                    'expires' => time() + 86400,
+                    'path' => '/',
+                    'secure' => true,
+                    'httponly' => true,
+                    'samesite' => 'Lax'
+                ]);
+                setcookie("user_email", $row["email"], [
+                    'expires' => time() + 86400,
+                    'path' => '/',
+                    'secure' => true,
+                    'httponly' => true,
+                    'samesite' => 'Lax'
+                ]);
+                setcookie("username", $row["username"], [
+                    'expires' => time() + 86400,
+                    'path' => '/',
+                    'secure' => true,
+                    'httponly' => true,
+                    'samesite' => 'Lax'
+                ]);
+                setcookie("firstname", $row["firstname"], [
+                    'expires' => time() + 86400,
+                    'path' => '/',
+                    'secure' => true,
+                    'httponly' => true,
+                    'samesite' => 'Lax'
+                ]);
+                setcookie("lastname", $row["lastname"], [
+                    'expires' => time() + 86400,
+                    'path' => '/',
+                    'secure' => true,
+                    'httponly' => true,
+                    'samesite' => 'Lax'
+                ]);
+                setcookie("user_avatar", $row["user_avatar"], [
+                    'expires' => time() + 86400,
+                    'path' => '/',
+                    'secure' => true,
+                    'httponly' => true,
+                    'samesite' => 'Lax'
+                ]);
             }
 
             echo json_encode([
