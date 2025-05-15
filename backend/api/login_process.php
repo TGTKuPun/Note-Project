@@ -49,6 +49,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 setcookie("user_id", $row["user_id"], time() + 86400, "/");
                 setcookie("user_email", $row["email"], time() + 86400, "/");
                 setcookie("username", $row["username"], time() + 86400, "/");
+                setcookie("firstname", $row["firstname"], time() + 86400, "/");
+                setcookie("lastname", $row["lastname"], time() + 86400, "/");
+                setcookie("user_avatar", $row["user_avatar"], time() + 86400, "/");
             }
 
             echo json_encode([

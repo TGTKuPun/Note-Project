@@ -6,6 +6,9 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['user_email'])) {
     $_SESSION['user_id'] = $_COOKIE['user_id'];
     $_SESSION['user_email'] = $_COOKIE['user_email'];
     $_SESSION['username'] = $_COOKIE['username'];
+    $_SESSION['firstname'] = $_COOKIE['firstname'];
+    $_SESSION['lastname'] = $_COOKIE['lastname'];
+    $_SESSION['user_avatar'] = $_COOKIE['user_avatar'];
   } else {
     header('Location: ../index.php');
     exit();
@@ -44,7 +47,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="../assets/favicon/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
-  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <link rel="manifest" href="../manifest.json">
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="../assets/favicon/ms-icon-144x144.png">
   <meta name="theme-color" content="#ffffff">
@@ -335,6 +338,18 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
   <!-- Custome JS -->
   <script src="../assets/js/dashboard.js"></script>
   <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('../sw.js')
+          .then(function(registration) {
+            console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch(function(error) {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
       fetch_label();
       loadNotesFromServer();
