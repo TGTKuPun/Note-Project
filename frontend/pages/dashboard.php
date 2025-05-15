@@ -63,14 +63,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
 
   <!-- Custome CSS -->
   <link rel="stylesheet" href="../assets/css/reset.css" />
-  <link rel="stylesheet" href="../assets/css/dashboard/scroll.css" />
-  <link rel="stylesheet" href="../assets/css/dashboard/note_section.css" />
-  <link rel="stylesheet" href="../assets/css/dashboard/profile.css" />
-  <link rel="stylesheet" href="../assets/css/dashboard/create_note.css" />
-  <link rel="stylesheet" href="../assets/css/dashboard/search_bar.css">
-  <link rel="stylesheet" href="../assets/css/dashboard/responsive.css" />
-  <link rel="stylesheet" href="../assets/css/dashboard/scroll_to_top.css" />
-  <link rel="stylesheet" href="../assets/css/dashboard/edit_profile.css" />
+  <link rel="stylesheet" href="../assets/css/dashboard.css">
 
   <!-- Icon -->
   <link
