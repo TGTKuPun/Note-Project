@@ -1,5 +1,6 @@
 <?php
 require_once('connection.php');
+require_once('config.php');
 require('vendor/autoload.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -34,12 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $mail->isSMTP();
                 $mail->Host       = 'smtp.gmail.com';
                 $mail->SMTPAuth   = true;
-                $mail->Username   = 'trangiathanh0205@gmail.com';
-                $mail->Password   = 'fchqzhhupsgfxyod';
+                $mail->Username   = SMTP_USER;
+                $mail->Password   = SMTP_PASS;
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
 
-                $mail->setFrom('trangiathanh0205@gmail.com', 'Personal Note');
+                $mail->setFrom(SMTP_USER, 'Personal Note');
                 $mail->addAddress($email);
                 $mail->isHTML(true);
                 $mail->Subject = 'Your Password Has Been Reset';

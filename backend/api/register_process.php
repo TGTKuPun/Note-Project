@@ -1,6 +1,11 @@
 <?php
 session_start();
 require_once "connection.php";
+require_once "config.php";
+require 'vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 header("Content-Type: application/json");
 
@@ -35,11 +40,42 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt_1->bind_param("i", $new_user_id);
         $stmt_1->execute();
 
-        echo json_encode([
-            "status" => "success",
-            "message" => "Registration successful. Please enter the OTP to verify your account.",
-            "otp" => $otp_code  
-        ]);
+        $mail = new PHPMailer(true);
+
+        try {
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = SMTP_USER;
+            $mail->Password   = SMTP_PASS;
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = 587;
+
+            // Recipients
+            $mail->setFrom(SMTP_USER, 'Personal Note');
+            $mail->addAddress($email, "$firstname $lastname");
+
+            // Content
+            $mail->isHTML(true);
+            $mail->Subject = 'Your OTP Code to active your account';
+            $mail->Body    = "
+                <h3>Hi $firstname,</h3>
+                <p>Your OTP code is: <strong>$otp_code</strong></p>
+                <p>This code will expire in 10 minutes.</p>
+            ";
+
+            $mail->send();
+            echo json_encode([
+                "status" => "success",
+                "message" => "Registration successful. Please enter the OTP to verify your account.",
+                "otp" => $otp_code
+            ]);
+        } catch (Exception $e) {
+            echo json_encode([
+                "status" => "error",
+                "message" => "Failed to send OTP email. Please try again later."
+            ]);
+        }
     } else {
         echo json_encode([
             "status" => "error",
