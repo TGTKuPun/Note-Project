@@ -205,7 +205,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
       <div class="content">
         <header>
           <p>Add a new note</p>
-          <i class="bx bx-x"></i>
+          <i class="bx bx-x close-icon"></i>
         </header>
         <!-- Main Content -->
         <form action="#" method="POST" enctype="multipart/form-data">
@@ -245,7 +245,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
       <div class="content">
         <header>
           <p>Edit Profile</p>
-          <i class="bx bx-x" id="close_profile_popup"></i>
+          <i class="bx bx-x close-icon" id="close_profile_popup"></i>
         </header>
         <form action="../api/profile/update_profile.php" id="editProfileForm" method="POST" enctype="multipart/form-data">
           <!-- Avatar -->
@@ -290,7 +290,7 @@ require_once(__DIR__ . '/../api/note/user_preferences.php');
       <div class="content">
         <header>
           <p>Change Password</p>
-          <i class="bx bx-x" id="close_change_password_popup"></i>
+          <i class="bx bx-x close-icon" id="close_change_password_popup"></i>
         </header>
         <form action="#" id="editPasswordForm" method="POST">
           <!-- Current Password -->

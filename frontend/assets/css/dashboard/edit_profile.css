@@ -45,9 +45,9 @@
 }
 
 #edit_email[readonly] {
-  background-color: #f0f0f0; /* Màu xám nhạt */
-  color: #777; /* Màu chữ xám */
-  border: 1px solid #ccc; /* Màu viền nhạt */
+  background-color: #f0f0f0; 
+  color: #777; 
+  border: 1px solid #ccc; 
 }
 
 .popup-box-edit-profile .row.username input,
@@ -58,5 +58,5 @@
   border-left: 0;
   border-right: 0;
   border-radius: none;
-  border-bottom: 1px solid #C5AD96;
+  border-bottom: 1px solid #c5ad96;
 }

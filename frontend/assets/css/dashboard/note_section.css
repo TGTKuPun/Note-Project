@@ -2,14 +2,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 /* GLOBAL STYLE */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box !important;
-  font-family: "Roboto", sans-serif !important;
+html {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 
-html,
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-family: inherit;
+}
+
 body {
   background-color: #f6f3ef;
 }
@@ -56,15 +62,21 @@ nav {
   background-color: rgba(0, 0, 0, 0.02);
 }
 
-.btn-close {
-  border-radius: none !important;
+.btn-close,
+.close-icon {
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
-.btn-close:hover {
-  background-color: rgba(0, 0, 0, 0.02);
+.btn-close:hover,
+.close-icon:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-.btn-close:focus {
+.btn-close:focus,
+.btn-close:focus i,
+.close-icon:focus,
+.close-icon:focus i {
   outline: none !important;
   box-shadow: none !important;
 }

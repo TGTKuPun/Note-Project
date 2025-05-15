@@ -98,7 +98,6 @@ function showNotes(notes_to_show) {
                   <div class="settings">
                     <i onclick="showMenu(this)" class="bx bx-dots-horizontal-rounded"></i>
                     <ul class="menu">
-                      
                       <li><i class="bx bx-edit-alt"></i><span>Edit</span></li>
                       <li onclick="deleteNote(${note.note_id})"><i class="bx bx-trash-alt"></i><span>Delete</span></li>
                     </ul>
@@ -220,6 +219,7 @@ function deleteNote(note_id) {
     showCancelButton: true,
     confirmButtonText: "Yes, delete it",
     cancelButtonText: "Cancel",
+    confirmButtonColor: "#ff4d4d",
   }).then((result) => {
     if (result.isConfirmed) {
       const index = notes.findIndex((note) => note.note_id === note_id);
@@ -371,7 +371,7 @@ function fetch_label() {
   });
 }
 
-// FILTER LABEL FUNCTION
+// =============== FILTER LABEL FUNCTION =====================
 const all_labels = document.getElementById("all-labels");
 
 all_labels.addEventListener("click", function (e) {
@@ -391,7 +391,7 @@ function filterLabel(labelName) {
   }
 }
 
-// SEARCH BAR FUNCTION
+// ==================== SEARCH BAR FUNCTION ============================
 const searchBar = document.getElementById("searchOffcanvas");
 const searchInput = searchBar.querySelector("#input-field");
 
@@ -405,7 +405,7 @@ searchInput.addEventListener("input", function () {
   showNotes(filter);
 });
 
-// UPDATE LAYOUT VIEW PREFERENCE
+// =================== UPDATE LAYOUT VIEW PREFERENCE =====================
 $(document).ready(function () {
   $(".dropdown-menu .dropdown-item").on("click", function () {
     const selectedView = $(this).closest("li").data("view");
@@ -440,7 +440,7 @@ $(document).ready(function () {
   });
 });
 
-// SCROLL TO TOP
+// ====================== SCROLL TO TOP =============================
 $(window).scroll(function () {
   if ($(window).scrollTop() > 300) {
     $(".bx.bxs-chevron-up").css({
@@ -459,7 +459,7 @@ $(".bx.bxs-chevron-up").click(function () {
   $("html, body").animate({ scrollTop: 0 }, 200);
 });
 
-// POPUP EDIT PROFILE FORM
+// =================== POPUP EDIT PROFILE FORM ============================
 // Change immediately the new avatar to review
 document.querySelector("#edit_avatar").addEventListener("change", function (e) {
   const file = e.target.files[0];
@@ -486,19 +486,13 @@ document.addEventListener("click", function (e) {
   }
 });
 
-// CHANGE PASSWORD FORM
+// ====================== CHANGE PASSWORD FORM =======================
 $("#editPasswordForm").on("submit", function (e) {
   e.preventDefault();
 
   var currentPassword = $("#current_password").val().trim();
   var newPassword = $("#new_password").val().trim();
   var confirmPassword = $("#confirm_password").val().trim();
-
-  if (newPassword !== confirmPassword) {
-    Popup_changePassword.classList.remove("show");
-    alert("The password must be the same");
-    return;
-  }
 
   // Delivery data via Ajax
   $.ajax({
@@ -512,11 +506,19 @@ $("#editPasswordForm").on("submit", function (e) {
     },
     success: function (response) {
       if (response.status === "success") {
-        alert("Success! " + response.message);
         $("#editPasswordForm")[0].reset();
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Your password has been successfully updated to the latest",
+        });
         return;
       } else {
-        alert("Error! " + response.message);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: response.message,
+        });
         return;
       }
     },

@@ -8,7 +8,7 @@
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
-  z-index: 9999;
+  z-index: 999;
 }
 
 .popup-box .popup,
@@ -123,12 +123,12 @@ form .row label {
 }
 
 #note_desc img {
-  max-width: 100%; /* ảnh không vượt quá chiều ngang khung */
-  height: auto; /* giữ tỷ lệ gốc */
-  display: block; /* tránh ảnh bị tràn nếu là inline */
-  margin-top: 10px;
-  max-height: 300px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  max-height: 300px; /* To limit the size of image not to large */
   object-fit: contain;
+  margin: 10px auto; /* To align the attached image to the center of the description */
 }
 
 .popup-box-change-password {
