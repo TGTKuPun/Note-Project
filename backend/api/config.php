@@ -1,3 +1,3 @@
 <?php
-define('SMTP_USER', 'trangiathanh0205@gmail.com');
-define('SMTP_PASS', 'fchqzhhupsgfxyod');
+define('SMTP_USER', 'notewebsite6@gmail.com');
+define('SMTP_PASS', 'mtkpfaqkxljidobn');

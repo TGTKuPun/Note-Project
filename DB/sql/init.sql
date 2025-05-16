@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS tb_labels (
 CREATE TABLE IF NOT EXISTS tb_preferences (
   `user_id` INT PRIMARY KEY,
   `view` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT 'grid',
-  `theme` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT 'theme'
+  `theme` VARCHAR(100) COLLATE utf8_unicode_ci DEFAULT 'light'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Inserted Data
@@ -49,7 +49,7 @@ VALUES
 
  INSERT INTO tb_labels (label_name) VALUES
 ('Work'),
-('Study'),
+('Study'),  
 ('Business'),
 ('Personal');
 

@@ -20,7 +20,7 @@ $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
 $avatar = $_SESSION['user_avatar'];
 
-require_once __DIR__ . '/../api/note/user_preferences.php';
+require_once __DIR__ . '/../api/Note/user_preferences.php';
 
 ?>
 <!DOCTYPE html>
@@ -336,29 +336,15 @@ require_once __DIR__ . '/../api/note/user_preferences.php';
   <!-- Custome JS -->
   <script src="../assets/js/dashboard.js"></script>
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('../sw.js')
-          .then(function(registration) {
-            console.log('Service Worker registered with scope:', registration.scope);
-          })
-          .catch(function(error) {
-            console.log('Service Worker registration failed:', error);
-          });
-      });
-    }
-
     window.addEventListener("DOMContentLoaded", () => {
       fetch_label();
       loadNotesFromServer();
 
       const prefer_element = document.getElementById('user_preferences');
 
-      // Đọc từ localStorage
       let theme = localStorage.getItem("theme") || "light";
       let view = localStorage.getItem("view") || "grid";
 
-      // Nếu element có dataset -> ưu tiên (người dùng vừa chọn mới)
       if (prefer_element) {
         if (prefer_element.dataset.theme) {
           theme = prefer_element.dataset.theme;
@@ -370,23 +356,19 @@ require_once __DIR__ . '/../api/note/user_preferences.php';
         }
       }
 
-      // Áp dụng theme
       if (theme === "dark") {
         document.body.classList.add("dark");
       } else {
         document.body.classList.remove("dark");
       }
 
-      // Áp dụng layout view
+      // Apply layout view
       const note_section = document.querySelector(".wrapper");
-      // const header_row = document.querySelector(".header-row");
+
       if (note_section) {
-        note_section.classList.remove("list-view"); // reset
+        note_section.classList.remove("list-view");
         if (view === "list") {
           note_section.classList.add("list-view");
-          // header_row.show();
-        } else {
-          // header_row.hide();
         }
       }
     });
