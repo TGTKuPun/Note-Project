@@ -40,10 +40,6 @@ function logout() {
 
 let subMenu = document.getElementById("subMenu");
 
-// function toggleProfile() {
-//   subMenu.classList.toggle("open");
-// }
-
 function toggleProfile() {
   const chevronIcon = document.querySelector(".chevron-icon");
 
@@ -85,7 +81,7 @@ function showNotes(notes_to_show) {
   document.querySelectorAll(".note").forEach((note) => note.remove());
 
   notes_to_show.forEach((note) => {
-    let li = `<li class="note" data-id="${note.note_id}" data-title="${encodeURIComponent(note.note_title)}" data-desc="${encodeURIComponent(note.note_desc)}"  data-labels="${note.label_name || ''}">
+    let li = `<li class="note" data-id="${note.note_id}" data-title="${encodeURIComponent(note.note_title)}" data-desc="${encodeURIComponent(note.note_desc)}"  data-label="${note.label_name || ''}">
                 <div class="details">
                   <p>${note.note_title}</p>
                   <span>${note.note_desc}</span>
@@ -307,13 +303,10 @@ Btn_add.addEventListener("click", (e) => {
       success: function (response) {
         console.log(response.message);
 
-        // if (!isUpdated) {
-        //   // Update note_id
         Note_info.note_id = response.note_id;
         notes[notes.length - 1] = Note_info;
         localStorage.setItem("notes", JSON.stringify(notes));
         showNotes(notes);
-        // }
       },
       error: function (xhr, status, error) {
         console.error(error);
