@@ -25,6 +25,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
 
+    $check_email = $con->prepare("SELECT COUNT(*) FROM tb_users WHERE email = ?");
+    $check_email->bind_param("s", $email);
+    $check_email->execute();
+    $check_email->bind_result($email_count);
+    $check_email->fetch();
+    $check_email->close();
+
+    if ($email_count > 0) {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Email has been registerd",
+        ]);
+        exit;
+    }
+
     $otp_code = rand(100000, 999999);
     $otp_expiry = date('Y-m-d H:i:s', strtotime('+10 minutes'));
 

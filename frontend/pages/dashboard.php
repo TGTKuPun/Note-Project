@@ -13,6 +13,10 @@ if (
   exit();
 }
 
+// Đồng bộ user_id với localStorage
+echo "<script>if (!localStorage.getItem('user_id')) { localStorage.setItem('user_id', '" . $_SESSION['user_id'] . "'); }</script>";
+
+
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 $email = $_SESSION['user_email'];
@@ -141,7 +145,7 @@ require_once __DIR__ . '/../api/Note/user_preferences.php';
             <a class="nav-link" aria-current="page" href="#" id="all-labels"><i class='bx bxs-widget'></i> Library</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" id="all-labels"><i class='bx bxs-heart'></i> My Favorite</a>
+            <a class="nav-link" href="#" id="my-notes"><i class='bx bxs-heart'></i> My Notes</a>
           </li>
           <li class="nav-item dropdown">
             <!-- prettier-ignore -->
@@ -166,10 +170,17 @@ require_once __DIR__ . '/../api/Note/user_preferences.php';
               <i class='bx bx-filter'></i> Labels
             </a>
             <ul class="dropdown-menu" id="label-menu" style="max-height: 166px; overflow-y: auto;">
-              <li class="text-center">
-                <a class="dropdown-item" href="#" style="color: #996D60"><i class='bx bx-plus-circle'></i> New Label</a>
+              <li class="text-center" id="new_label_item">
+                <a class="dropdown-item" href="#" id="new_label_btn" style="color: #996D60">
+                  <i class='bx bx-plus-circle'></i> New Label
+                </a>
+                <div id="new_label_input" style="display: none; padding: 10px;">
+                  <input type="text" id="new_label" placeholder="Enter label name" style="width: 70%; padding: 5px;">
+                  <button id="save_label_btn" style="padding: 5px 10px;">Save</button>
+                </div>
               </li>
               <hr class="dropdown-divider">
+              <!-- Danh sách nhãn sẽ được thêm động bởi JavaScript -->
             </ul>
           </li>
         </ul>
@@ -274,6 +285,41 @@ require_once __DIR__ . '/../api/Note/user_preferences.php';
           <button type="submit">Save Changes</button>
         </form>
       </div>
+    </div>
+  </div>
+
+  <!-- Popup Share Note -->
+  <div class="popup-box-share-note" id="popup-share-note">
+    <div class="popup">
+      <div class="content">
+        <header>
+          <p>Share Note</p>
+          <i class="bx bx-x" id="close_share_popup"></i>
+        </header>
+
+        <form id="Share" method="POST">
+         <input type="hidden" id="note_id" name="note_id">
+            <!-- Share Type -->
+            <div class="row label">
+              <label for="share_type">Share type</label>
+              <select name="share_type" id="share_type" required>
+                <option value="" disabled hidden selected>Choose type</option>
+                <option value="private">Private - Only you can see this note</option>
+                <option value="public">Public - Anyone can see this note</option>
+                <option value="protect">Protect - Need permisson to see this note</option>
+              </select>
+            </div>
+            <!-- Protect pass -->
+            <div class="row label" id="protect_pass" style="display: none;">
+              <label for="note_pass">Password</label>
+              <input type="password" id="note_pass" name="pass" placeholder="Enter password">
+            </div>
+            <!-- Nút Share -->
+            <div class="row">
+              <button type="submit" id="Btn_share">Share</button>
+            </div>
+          </form>
+        </div>
     </div>
   </div>
 

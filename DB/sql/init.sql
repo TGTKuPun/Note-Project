@@ -23,13 +23,17 @@ CREATE TABLE IF NOT EXISTS tb_notes (
   `note_desc` MEDIUMTEXT COLLATE utf8_unicode_ci NOT NULL,
   `note_date` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL,
   `user_id` INT,
-  `label_id` INT
+  `label_id` INT,
+  `is_pinned` BIT(1) DEFAULT b'0',
+  `access` ENUM('public','private','protect') DEFAULT 'private',
+  `pass` VARCHAR(255) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Create tb_labels Table
 CREATE TABLE IF NOT EXISTS tb_labels (
   `label_id` INT AUTO_INCREMENT PRIMARY KEY,
-  `label_name` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL
+  `label_name` VARCHAR(100) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` INT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Create tb_preferences Table
@@ -47,11 +51,11 @@ VALUES
 ('Jane', 'Doe', 'jane.doe@gmail.com', 'jane_doe', '$2b$12$3WGl/7lUbdvbTXZT1.8BHevq4xXtEwkSEXsTq6lmO0uyAZQvpqOJm', b'1',
  '654321', '2025-05-09 15:00:00', 'tok_jane_xyz789');
 
- INSERT INTO tb_labels (label_name) VALUES
-('Work'),
-('Study'),  
-('Business'),
-('Personal');
+ INSERT INTO tb_labels (label_name, user_id) VALUES -- sửa ở đây: Thêm user_id mặc định là 0 cho nhãn công khai
+('Work', 0),
+('Study', 0),
+('Business', 0),
+('Personal', 0);
 
 INSERT INTO tb_notes (note_title, note_desc, note_date, user_id, label_id) VALUES
 ('Daily Missions', 'Complete all daily missions to earn Trailblaze EXP and credits.', 'April 25, 2025', 1, 1),

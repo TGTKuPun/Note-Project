@@ -2,15 +2,14 @@
     session_start();
 
     session_unset();
-
     session_destroy();
 
-    if (isset($_COOKIE['user_id'])) {
-        setcookie('user_id', '', time() - 3600, '/');  
-    }
+    $cookies_to_clear = ['user_id', 'user_email', 'username', 'firstname', 'lastname', 'user_avatar'];
 
-    if (isset($_COOKIE['user_email'])) {
-        setcookie('user_email', '', time() - 3600, '/'); 
+    foreach ($cookies_to_clear as $cookie_name) {
+        if (isset($_COOKIE[$cookie_name])) {
+            setcookie($cookie_name, '', time() - 3600, '/');
+        }
     }
 
     header("Location: ../index.php");
