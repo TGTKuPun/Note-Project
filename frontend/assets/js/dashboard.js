@@ -107,7 +107,7 @@ function showNotes(notes_to_show) {
     const pinIcon = note.is_pinned ? 'bxs-pin' : 'bx-pin';
     const isProtected = note.access === "protect";
     const noteId = note.note_id;
-    const note_title = isProtected ? "This note is protected" : note.note_title;
+    const note_title = isProtected ? `<i class='bx bx-lock'></i> Protected` : note.note_title;
     const note_desc = isProtected ? "Contact to the owner for more infomation." : note.note_desc;
 
     let li = `<li class="note ${pinnedClass}" data-id="${note.note_id}" data-title="${encodeURIComponent(note.note_title)}" data-desc="${encodeURIComponent(note.note_desc)}" data-label="${note.label_name || ''}">
@@ -123,7 +123,7 @@ function showNotes(notes_to_show) {
                   <div class="label">
                     <span>${note.label_name || 'No label'}</span>
                   </div>
-                    ${isProtected ? `<button class="btn_see" onclick="checkPass(this)" data-id="${noteId}">Show</button>` : ''}
+                    ${isProtected ? `<button class="btn_see" onclick="checkPass(this)" data-id="${noteId}" >Show more...</button>` : ''}
                 </div>
                 <div class="bottom-content">
                   <span>${note.note_date}</span>
