@@ -175,13 +175,13 @@ header {
 }
 /* PINNED NOTE */
 .note.pinned {
-    border: 2px solid #ffd700; 
-    background-color: #fffde7; 
+  border: 2px solid #ffd700;
+  background-color: #fffde7;
 }
 
 .note .settings .menu li i.bx-pin,
 .note .settings .menu li i.bxs-pin {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .note span {
@@ -510,14 +510,15 @@ form .row label {
 .btn_see {
   width: 30%;
   height: 25px;
+  margin-bottom: 4px;
   border: none;
   outline: none;
-  color: var(--second-color);
+  color: #444444;
+  font-weight: 500;
   cursor: pointer;
   font-size: 17px;
   border-radius: 4px;
-  background: var(--primary-color);
-  border: 1px solid var(--second-color);
+  background: #ebebeb;
 }
 
 .content form button:hover {
@@ -840,7 +841,7 @@ div.user-info {
 }
 
 #label-menu .label-item .actions .edit-btn {
-  background: #996D60;
+  background: #996d60;
   color: #fff;
 }
 

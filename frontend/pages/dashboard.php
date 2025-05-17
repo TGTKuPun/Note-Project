@@ -13,9 +13,6 @@ if (
   exit();
 }
 
-// Đồng bộ user_id với localStorage
-echo "<script>if (!localStorage.getItem('user_id')) { localStorage.setItem('user_id', '" . $_SESSION['user_id'] . "'); }</script>";
-
 
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
@@ -79,7 +76,7 @@ require_once __DIR__ . '/../api/Note/user_preferences.php';
   <title>Note Dashboard</title>
 </head>
 
-<body>
+<body data-user-id="<?= htmlspecialchars($user_id) ?>">
   <!-- Scroll to Top -->
   <i class='bx bxs-chevron-up fs-1'></i>
 
@@ -154,7 +151,9 @@ require_once __DIR__ . '/../api/Note/user_preferences.php';
               <li class="d-flex align-items-center justify-content-center ms-1" data-view="list">
                 <a class="dropdown-item ms-0 ps-2" href="#"><i class='bx bx-list-ul'></i> Row</a>
               </li>
-              <hr class="dropdown-divider" />
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
               <li class="d-flex align-items-center justify-content-center ms-1" data-view="grid">
                 <a class="dropdown-item ms-0 ps-2" href="#"><i class='bx bxs-grid-alt'></i> Grid</a>
               </li>
@@ -176,11 +175,10 @@ require_once __DIR__ . '/../api/Note/user_preferences.php';
                 </a>
                 <div id="new_label_input" style="display: none; padding: 10px;">
                   <input type="text" id="new_label" placeholder="Enter label name" style="width: 70%; padding: 5px;">
-                  <button id="save_label_btn" style="padding: 5px 10px;">Save</button>
+                  <button id="save_label_btn" style="padding: 5px 10px; background-color: #f3da54;">Save</button>
                 </div>
+                <!-- <hr class="dropdown-divider" /> -->
               </li>
-              <hr class="dropdown-divider">
-              <!-- Danh sách nhãn sẽ được thêm động bởi JavaScript -->
             </ul>
           </li>
         </ul>
@@ -298,28 +296,28 @@ require_once __DIR__ . '/../api/Note/user_preferences.php';
         </header>
 
         <form id="Share" method="POST">
-         <input type="hidden" id="note_id" name="note_id">
-            <!-- Share Type -->
-            <div class="row label">
-              <label for="share_type">Share type</label>
-              <select name="share_type" id="share_type" required>
-                <option value="" disabled hidden selected>Choose type</option>
-                <option value="private">Private - Only you can see this note</option>
-                <option value="public">Public - Anyone can see this note</option>
-                <option value="protect">Protect - Need permisson to see this note</option>
-              </select>
-            </div>
-            <!-- Protect pass -->
-            <div class="row label" id="protect_pass" style="display: none;">
-              <label for="note_pass">Password</label>
-              <input type="password" id="note_pass" name="pass" placeholder="Enter password">
-            </div>
-            <!-- Nút Share -->
-            <div class="row">
-              <button type="submit" id="Btn_share">Share</button>
-            </div>
-          </form>
-        </div>
+          <input type="hidden" id="note_id" name="note_id">
+          <!-- Share Type -->
+          <div class="row label">
+            <label for="share_type">Share type</label>
+            <select name="share_type" id="share_type" required>
+              <option value="" disabled hidden selected>Choose type</option>
+              <option value="private">Private - Only you can see this note</option>
+              <option value="public">Public - Anyone can see this note</option>
+              <option value="protect">Protect - Need permisson to see this note</option>
+            </select>
+          </div>
+          <!-- Protect pass -->
+          <div class="row label" id="protect_pass" style="display: none;">
+            <label for="note_pass">Password</label>
+            <input type="password" id="note_pass" name="pass" placeholder="Enter password">
+          </div>
+          <!-- Nút Share -->
+          <div class="row">
+            <button type="submit" id="Btn_share">Share</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 

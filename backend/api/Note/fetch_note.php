@@ -39,4 +39,3 @@ echo json_encode($notes);
 
 $stmt->close();
 $con->close();
-?>

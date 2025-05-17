@@ -48,6 +48,11 @@ function toggleProfile() {
   chevronIcon.classList.toggle("rotate");
 }
 
+const userId = document.body.dataset.userId;
+if (!localStorage.getItem("user_id")) {
+  localStorage.setItem("user_id", userId);
+}
+
 // ================== CREATE NOTE FORM ========================
 const Box_add = document.querySelector(".add-note");
 const Box_popup = document.querySelector(".popup-box");
@@ -107,7 +112,7 @@ function showNotes(notes_to_show) {
 
     let li = `<li class="note ${pinnedClass}" data-id="${note.note_id}" data-title="${encodeURIComponent(note.note_title)}" data-desc="${encodeURIComponent(note.note_desc)}" data-label="${note.label_name || ''}">
                 <div class="top-content" style="display: flex; align-items: center; gap: 10px;">
-                  <div style="display: flex; align-items: center; gap: 8px; background-color: #fff; padding: 4px 8px; border-radius: 6px;">
+                  <div style="display: flex; align-items: center; gap: 8px; background-color: #fff; padding: 4px 8px; border-radius: 4px; border: 1px solid #575757; margin-bottom: 8px">
                     <img src="../assets/uploads/avatar/${note.user_avatar || 'default.webp'}" style="width: 30px;  height: 30px; object-fit: cover; border-radius: 50%;">
                     ${note.username || "Unknown User"}
                   </div>
@@ -118,22 +123,24 @@ function showNotes(notes_to_show) {
                   <div class="label">
                     <span>${note.label_name || 'No label'}</span>
                   </div>
-                    ${isProtected ? `<button class="btn_see" onclick="checkPass(this)" data-id="${noteId}">Detail</button>` : ''}
+                    ${isProtected ? `<button class="btn_see" onclick="checkPass(this)" data-id="${noteId}">Show</button>` : ''}
                 </div>
                 <div class="bottom-content">
                   <span>${note.note_date}</span>
-                  <div class="settings">
-                    <i onclick="showMenu(this)" class="bx bx-dots-horizontal-rounded"></i>
-                    <ul class="menu">
-                      <li onclick="togglePinNote(${note.note_id}, this)">
-                        <i class="bx ${pinIcon}"></i><span>${note.is_pinned ? 'Unpin' : 'Pin'}</span>
-                      </li>
-                      <li onclick="updateNote(${note.note_id}, '${encodeURIComponent(note.note_title)}', '${encodeURIComponent(note.note_desc)}', '${note.label_name || ''}')">
-                        <i class="bx bx-edit-alt"></i><span>Edit</span>
-                      </li>
-                      <li onclick="deleteNote(${note.note_id})"><i class="bx bx-trash-alt"></i><span>Delete</span></li>
-                      <li onclick="ShareNote(${note.note_id})"><i class='bx bx-share'></i><span>Share</span></li>
-                    </ul>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <i class='bx bx-share' onclick="ShareNote(${note.note_id})" style="cursor: pointer;" title="Share note"></i>
+                    <div class="settings">
+                      <i onclick="showMenu(this)" class="bx bx-dots-horizontal-rounded"></i>
+                      <ul class="menu">
+                        <li onclick="togglePinNote(${note.note_id}, this)">
+                          <i class="bx ${pinIcon}"></i><span>${note.is_pinned ? 'Unpin' : 'Pin'}</span>
+                        </li>
+                        <li onclick="updateNote(${note.note_id}, '${encodeURIComponent(note.note_title)}', '${encodeURIComponent(note.note_desc)}', '${note.label_name || ''}')">
+                          <i class="bx bx-edit-alt"></i><span>Edit</span>
+                        </li>
+                        <li onclick="deleteNote(${note.note_id})"><i class="bx bx-trash-alt"></i><span>Delete</span></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </li>`;
