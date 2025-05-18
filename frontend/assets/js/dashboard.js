@@ -1294,8 +1294,7 @@ function checkPass(button) {
             );
             noteElement.querySelector(".note-title").textContent =
               data.note_title;
-            noteElement.querySelector(".note-desc").textContent =
-              data.note_desc;
+            noteElement.querySelector(".note-desc").innerHTML = data.note_desc;
             button.remove(); // xóa nút "See"
           } else {
             Swal.fire("Mật khẩu không đúng", "", "error");
