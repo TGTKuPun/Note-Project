@@ -128,7 +128,7 @@ function showNotes(notes_to_show) {
                 <div class="bottom-content">
                   <span>${note.note_date}</span>
                   <div style="display: flex; align-items: center; gap: 8px;">
-                    <i class='bx bx-share' onclick="ShareNote(${note.note_id})" style="cursor: pointer;" title="Share note"></i>
+                    ${parseInt(note.user_id) === parseInt(currentUserId) ? `<i class='bx bx-share' onclick="ShareNote(${note.note_id})" style="cursor: pointer;" title="Share note"></i>` : ""} 
                     <div class="settings">
                       <i onclick="showMenu(this)" class="bx bx-dots-horizontal-rounded"></i>
                       <ul class="menu">
@@ -1207,6 +1207,7 @@ document.getElementById("share_type").addEventListener("change", function () {
     note_pass.removeAttribute("required");
     note_pass.value = "";
   }
+  showNotes(notes);
 });
 
 Btn_share_close.addEventListener("click", () => {
@@ -1249,8 +1250,9 @@ document.getElementById("Share").addEventListener("submit", function (e) {
           title: "Share success",
           text: "Now everyone can see your note",
           confirmButtonText: "OK",
+        }).then(() => {
+          location.reload();
         });
-
         shareBox.classList.remove("show");
       } else {
         Swal.fire({
