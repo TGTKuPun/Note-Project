@@ -344,7 +344,6 @@ header {
   height: 100%;
   display: grid;
   grid-template-columns: 2fr 9fr 1fr;
-  /* column-gap: 10px; */
   text-align: start;
 }
 
@@ -379,6 +378,10 @@ header {
   display: block;
   margin: auto;
   margin-bottom: 10px;
+}
+
+.wrapper.list-view .details .btn_see {
+  text-align: left;
 }
 
 /* ============ POPUP-BOX ============ */
@@ -508,14 +511,14 @@ form .row label {
 }
 
 .btn_see {
-  width: 45%;
+  width: 100%;
   height: 25px;
   margin-bottom: 4px;
   border: none;
   outline: none;
-  color: #444444;
+  color: #575767;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 15px;
   border-radius: 4px;
   background-color: inherit;
 }
@@ -750,9 +753,10 @@ div.user-info {
 }
 
 /* ====================== RESPONSIVE ======================== */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .wrapper {
-    grid-template-columns: repeat(2, 1fr);
+    margin: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
 
   .wrapper li {
@@ -792,6 +796,24 @@ div.user-info {
   /* BTN_SEE */
   .btn_see {
     width: 100%;
+  }
+
+  .wrapper.list-view .details .btn_see {
+    width: 200%;
+  }
+
+  /* POPUP-BOX PROFILE SUBMENU */
+  .sub-menu-wrap {
+    right: 0;
+  }
+
+  /* SEARH-BAR */
+  #searchOffcanvas,
+  #searchOffcanvas.show {
+    background-color: #f6f3ef !important;
+    max-height: 90px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
   }
 }
 

@@ -123,7 +123,7 @@ function showNotes(notes_to_show) {
                   <div class="label">
                     <span>${note.label_name || 'No label'}</span>
                   </div>
-                    ${isProtected ? `<button class="btn_see" onclick="checkPass(this)" data-id="${noteId}" >Show more...</button>` : ''}
+                    ${isProtected ? `<button class="btn_see" onclick="checkPass(this)" data-id="${noteId}" >Show detail</button>` : ''}
                 </div>
                 <div class="bottom-content">
                   <span>${note.note_date}</span>
