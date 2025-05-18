@@ -135,10 +135,12 @@ function showNotes(notes_to_show) {
                         <li onclick="togglePinNote(${note.note_id}, this)">
                           <i class="bx ${pinIcon}"></i><span>${note.is_pinned ? 'Unpin' : 'Pin'}</span>
                         </li>
-                        <li onclick="updateNote(${note.note_id}, '${encodeURIComponent(note.note_title)}', '${encodeURIComponent(note.note_desc)}', '${note.label_name || ''}')">
-                          <i class="bx bx-edit-alt"></i><span>Edit</span>
-                        </li>
-                        <li onclick="deleteNote(${note.note_id})"><i class="bx bx-trash-alt"></i><span>Delete</span></li>
+                        ${parseInt(note.user_id) === parseInt(currentUserId) ? 
+                        `  <li onclick="updateNote(${note.note_id}, '${encodeURIComponent(note.note_title)}', '${encodeURIComponent(note.note_desc)}', '${note.label_name || ''}')">
+                            <i class="bx bx-edit-alt"></i><span>Edit</span>
+                          </li>` : ""}
+                        ${parseInt(note.user_id) === parseInt(currentUserId) ? `<li onclick="deleteNote(${note.note_id})"><i class="bx bx-trash-alt"></i><span>Delete</span></li>` : ""}
+                        
                       </ul>
                     </div>
                   </div>
@@ -991,8 +993,12 @@ all_labels.addEventListener("click", function (e) {
   const myNotes = notes.filter(
     (n) => String(n.user_id) === String(currentUserId)
   );
-  const publicSharedNotes = notes.filter((n) => n.access === "public");
-  const protectSharedNotes = notes.filter((n) => n.access === "protect");
+  const publicSharedNotes = notes.filter(
+    (n) => n.access === "public" && String(n.user_id) !== String(currentUserId)
+  );
+  const protectSharedNotes = notes.filter(
+    (n) => n.access === "protect" && String(n.user_id) !== String(currentUserId)
+  );
 
   const allVisible = [...myNotes, ...publicSharedNotes, ...protectSharedNotes];
 
