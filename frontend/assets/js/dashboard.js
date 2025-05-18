@@ -1221,7 +1221,7 @@ document.getElementById("Share").addEventListener("submit", function (e) {
   note_pass = document.getElementById("note_pass").value;
 
   if (!note_id || !share_type) {
-    alert("Vui lòng chọn kiểu chia sẻ.");
+    alert("Please choose share type");
     return;
   }
 
@@ -1230,7 +1230,6 @@ document.getElementById("Share").addEventListener("submit", function (e) {
     share_type: share_type,
   };
 
-  // Nếu share_type là protect và có mật khẩu thì thêm mật khẩu vào request
   if (share_type === "protect" && note_pass.trim() !== "") {
     Inputdata.pass = note_pass;
   }
@@ -1264,8 +1263,8 @@ document.getElementById("Share").addEventListener("submit", function (e) {
     })
 
     .catch((err) => {
-      console.error("Lỗi:", err);
-      alert("Có lỗi khi kết nối tới máy chủ.");
+      console.error("Error:", err);
+      alert("Error when connecting to server.");
     });
 });
 
@@ -1295,13 +1294,13 @@ function checkPass(button) {
             noteElement.querySelector(".note-title").textContent =
               data.note_title;
             noteElement.querySelector(".note-desc").innerHTML = data.note_desc;
-            button.remove(); // xóa nút "See"
+            button.remove();
           } else {
-            Swal.fire("Mật khẩu không đúng", "", "error");
+            Swal.fire("Wrong password!", "", "error");
           }
         },
         error: function (xhr, status, error) {
-          Swal.fire("Lỗi server, thử lại sau", "", "error");
+          Swal.fire("Something went wrong! Please try again", "", "error");
           console.error("AJAX error:", error);
         },
       });
